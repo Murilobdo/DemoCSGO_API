@@ -1,0 +1,8 @@
+.vscode/
+.vs/
+
+DemoCSGO/bin/
+DemoCSGO/obj/
+
+DemoCSGO.Shared/bin/
+DemoCSGO.Shared/obj/
