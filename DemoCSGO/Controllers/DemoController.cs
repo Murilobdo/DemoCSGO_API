@@ -30,7 +30,7 @@ namespace DemoCSGO.Controllers
 
         [HttpPost]
         [Route("LoadDemo")]
-        public async Task<ActionResult> LoadDemo([FromServices]IDemoParserCore _core, [FromBody]dynamic file)
+        public async Task<ActionResult> LoadDemo([FromServices]IDemoParserCore _core, [FromBody]FileStream file)
         {
             try
             {
