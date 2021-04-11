@@ -5,6 +5,7 @@ using System.Linq;
 using DemoCSGO.Models;
 using DemoCSGO.Shared.Core;
 using DemoInfo;
+using Newtonsoft.Json;
 
 namespace DemoCSGO.Core
 {
@@ -39,8 +40,9 @@ namespace DemoCSGO.Core
                     }
                 }
             };
-
             _demo.ParseToEnd();
+
+            WriteJsonFile("weapons", JsonConvert.SerializeObject(result));
             return result;
         }
 
@@ -52,7 +54,6 @@ namespace DemoCSGO.Core
         public void LoadDemo(FileStream file)
         {
             _demo = new DemoParser(file);
-            throw new NotImplementedException();
         }
     }
 }

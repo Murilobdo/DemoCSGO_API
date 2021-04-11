@@ -1,0 +1,87 @@
+[
+    {
+        "NameWeapon": "Knife",
+        "DeathQuantity": 8,
+        "WeaponType": "Equipment"
+    },
+    {
+        "NameWeapon": "USP",
+        "DeathQuantity": 12,
+        "WeaponType": "Pistol"
+    },
+    {
+        "NameWeapon": "Glock",
+        "DeathQuantity": 5,
+        "WeaponType": "Pistol"
+    },
+    {
+        "NameWeapon": "Deagle",
+        "DeathQuantity": 12,
+        "WeaponType": "Pistol"
+    },
+    {
+        "NameWeapon": "Famas",
+        "DeathQuantity": 7,
+        "WeaponType": "Rifle"
+    },
+    {
+        "NameWeapon": "Tec9",
+        "DeathQuantity": 2,
+        "WeaponType": "Pistol"
+    },
+    {
+        "NameWeapon": "MP9",
+        "DeathQuantity": 8,
+        "WeaponType": "SMG"
+    },
+    {
+        "NameWeapon": "Scout",
+        "DeathQuantity": 4,
+        "WeaponType": "Rifle"
+    },
+    {
+        "NameWeapon": "AK47",
+        "DeathQuantity": 57,
+        "WeaponType": "Rifle"
+    },
+    {
+        "NameWeapon": "AWP",
+        "DeathQuantity": 27,
+        "WeaponType": "Rifle"
+    },
+    {
+        "NameWeapon": "M4A4",
+        "DeathQuantity": 17,
+        "WeaponType": "Rifle"
+    },
+    {
+        "NameWeapon": "Gallil",
+        "DeathQuantity": 13,
+        "WeaponType": "Rifle"
+    },
+    {
+        "NameWeapon": "Mac10",
+        "DeathQuantity": 3,
+        "WeaponType": "SMG"
+    },
+    {
+        "NameWeapon": "Incendiary",
+        "DeathQuantity": 1,
+        "WeaponType": "Grenade"
+    },
+    {
+        "NameWeapon": "P250",
+        "DeathQuantity": 1,
+        "WeaponType": "Pistol"
+    },
+    {
+        "NameWeapon": "AUG",
+        "DeathQuantity": 7,
+        "WeaponType": "Rifle"
+    },
+    {
+        "NameWeapon": "FiveSeven",
+        "DeathQuantity": 1,
+        "WeaponType": "Pistol"
+    }
+]
