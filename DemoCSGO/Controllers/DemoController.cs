@@ -26,7 +26,8 @@ namespace DemoCSGO.Controllers
             try
             {
                 //_core.GenerateWeapons();
-                _core.GeneratePlayers();
+                //_core.GeneratePlayers();
+                _core.GenerateHeadMap();
                 return Ok("Dados carregados");
             }
             catch (System.Exception ex)
@@ -45,6 +46,13 @@ namespace DemoCSGO.Controllers
         [HttpGet]
         [Route("GetPlayers")]
         public async Task<ActionResult> GetPlayers()
+        {
+            return Ok(System.IO.File.OpenRead(Path.Combine(path, "players.json")));
+        }
+
+        [HttpGet]
+        [Route("GetHeadMap")]
+        public async Task<ActionResult> GetHeadMap()
         {
             return Ok(System.IO.File.OpenRead(Path.Combine(path, "players.json")));
         }

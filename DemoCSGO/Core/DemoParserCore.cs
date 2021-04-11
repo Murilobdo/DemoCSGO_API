@@ -6,12 +6,17 @@ using DemoCSGO.Models;
 using DemoCSGO.Shared.Core;
 using DemoInfo;
 using Newtonsoft.Json;
+using System.Numerics;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace DemoCSGO.Core
 {
     public class DemoParserCore : CoreBase, IDemoParserCore
     {
         private DemoParser _demo;
+        Map mapDust2;
+
         public DemoParserCore()
         {
         }
@@ -90,5 +95,91 @@ namespace DemoCSGO.Core
         {
             _demo = new DemoParser(file);
         }
+
+        public void GenerateHeadMap()
+        {
+            string name = "Nivera";
+            mapDust2 = MakeMap("de_dust2", -2476, 3239, 4.4f);
+            OpenDemo();
+            _demo.ParseHeader();
+
+            List<Vector2> shootingPositions = new List<Vector2>();
+            List<Vector2> deathPositions = new List<Vector2>();
+            bool hasMatchStarted = false;
+
+            _demo.MatchStarted += (sender, e) => {
+                hasMatchStarted = true;
+            };
+
+            _demo.PlayerKilled += (sender, e) => {
+                if (e.Victim.Name.Contains(name) && hasMatchStarted){
+                    Vector2 vet = TrasnlateScale(e.Victim.LastAlivePosition.X, e.Victim.LastAlivePosition.Y);
+                    deathPositions.Add(vet);
+                }
+            };
+            _demo.WeaponFired += (sender, e) => {
+                if (e.Shooter.Name.Contains(name) && hasMatchStarted 
+                   && e.Weapon.Weapon != EquipmentElement.Knife && e.Weapon.Weapon != EquipmentElement.Molotov
+                   && e.Weapon.Weapon != EquipmentElement.Smoke && e.Weapon.Weapon != EquipmentElement.Flash
+                   && e.Weapon.Weapon != EquipmentElement.Decoy && e.Weapon.Weapon != EquipmentElement.HE){
+                    Vector2 vet = TrasnlateScale(e.Shooter.Position.X, e.Shooter.Position.Y);
+                    shootingPositions.Add(vet);
+                }
+            };
+
+            _demo.ParseToEnd();
+
+            DrawingPoints(shootingPositions, deathPositions);
+        }
+        private void DrawingPoints(List<Vector2> shootingPositions, List<Vector2> deathPositions)
+        {
+            
+            string path = Path.Combine(Environment.CurrentDirectory, "images");
+            using (var image = System.IO.File.Open(Path.Combine(path, "de_dust2.jpg"), FileMode.Open))
+            {
+                var bitmap = new Bitmap(image);
+                Graphics graph = Graphics.FromImage(bitmap);
+
+                Brush brush= new SolidBrush(Color.Red);
+                foreach (Vector2 Position in shootingPositions)
+                {
+                    graph.FillEllipse(brush, Position.X, Position.Y, 10, 10);
+                }
+
+                
+                Image deathIcon = Image.FromFile(Path.Combine(path, "rip.png"));
+                foreach (Vector2 Position in deathPositions)
+                {
+                    graph.DrawImage(deathIcon, Position.X - 15, Position.Y - 15);
+                }
+
+                bitmap.Save(Path.Combine(path, "heat_map.png"), ImageFormat.Png);
+                
+                graph.Dispose();
+                bitmap.Dispose();
+                image.Dispose();
+            }
+        }
+
+        private Map MakeMap(string name, float x, float y, float scale){
+            return  new Map(name, new Vector2(x,y) ,scale);
+        }  
+         private Vector2 TrasnlateScale(float x, float y)
+        {
+            Vector2 v = Translate(x, y);
+            return new Vector2(v.X / mapDust2.Scale, v.Y / mapDust2.Scale);
+        }
+
+        private Vector2 Translate(float x, float y) => new Vector2(x - mapDust2.PZero.X, mapDust2.PZero.Y - y);
+        private Color HeatMapColor(decimal value, decimal min, decimal max)
+        {
+            decimal val = (value - min) / (max - min);
+            int r = Convert.ToByte(255 * val);
+            int g = Convert.ToByte(255 * (1 - val));
+            int b = 0;
+
+            return Color.FromArgb(255,r,g,b);                                    
+        }
+
     }
 }

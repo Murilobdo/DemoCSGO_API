@@ -1,3 +1,6 @@
+using System.IO;
+using System;
+using System.Collections.Generic;
 using DemoCSGO.Shared.Interfaces;
 using DemoInfo;
 
@@ -5,6 +8,12 @@ namespace DemoCSGO.Shared.Core
 {
     public class CoreBase : ICoreBase
     {
+        private readonly string path;
+
+        public CoreBase()
+        {
+            path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
+        }
         public string GetNameWeapon(EquipmentElement equipment)
         {
             switch ((int)equipment)
@@ -59,6 +68,14 @@ namespace DemoCSGO.Shared.Core
                 case 506 : return "HE";
                 default: return "Desconhecido";
             }
+        }
+
+        public void WriteJsonFile(string nameFile, string json)
+        {
+            if(File.Exists(Path.Combine(path, $"{nameFile}.json")))
+                File.Delete(Path.Combine(path, $"{nameFile}.json"));
+                
+            File.WriteAllText(Path.Combine(path, $"{nameFile}.json"), json);
         }
     }
 }
