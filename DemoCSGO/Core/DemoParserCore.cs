@@ -14,22 +14,58 @@ namespace DemoCSGO.Core
         private DemoParser _demo;
         public DemoParserCore()
         {
-            _demo = new DemoParser(File.OpenRead("C:\\Downloads_hltv\\vitality-vs-natus-vincere-m3-dust2.dem"));
         }
+            
+        private void OpenDemo() => _demo = new DemoParser(File.OpenRead("C:\\Downloads_hltv\\vitality-vs-natus-vincere-m3-dust2.dem"));
 
-        public List<Weapon> GetWeapons()
+        public void GeneratePlayers()
         {
-            List<Weapon> result = new List<Weapon>();
+            List<Models.Player> result = new List<Models.Player>();
+            OpenDemo();
             _demo.ParseHeader();
             bool hasMatchStarted = false;
             _demo.MatchStarted += (sender, e) => {
                 hasMatchStarted = true;
             };
 
-            int cont = 0;
+
+            _demo.PlayerKilled += (sender, e) => {
+                if(hasMatchStarted){
+                    //Vitima
+                    if(result.Any(p => p.Name == e.Victim.Name)){
+                        var victim = result.Where(p => p.Name == e.Victim.Name).First();
+                        victim.Death++;
+                    }else{
+                        result.Add(new Models.Player(e.Victim.Name, 0, 1));
+                    }
+
+                    //Assasino
+                    if(result.Any(p => p.Name == e.Killer.Name)){
+                        var Killer = result.Where(p => p.Name == e.Killer.Name).First();
+                        Killer.Killed++;
+                    }else{
+                        result.Add(new Models.Player(e.Killer.Name, 1, 0));
+                    }
+                }
+            };
+            _demo.ParseToEnd();
+
+            WriteJsonFile("players", JsonConvert.SerializeObject(result));
+
+        }
+
+        public void GenerateWeapons()
+        {
+            List<Weapon> result = new List<Weapon>();
+            OpenDemo();
+            _demo.ParseHeader();
+            bool hasMatchStarted = false;
+            _demo.MatchStarted += (sender, e) => {
+                hasMatchStarted = true;
+            };
+
             _demo.PlayerKilled  += (sender, e) => {
                 if(hasMatchStarted){
-                    cont++;
                     string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
                     if(result.Any(p => p.NameWeapon == nameWeaponFired)){
                         var weapon = result.Where(p => p.NameWeapon == nameWeaponFired).FirstOrDefault();
@@ -43,10 +79,9 @@ namespace DemoCSGO.Core
             _demo.ParseToEnd();
 
             WriteJsonFile("weapons", JsonConvert.SerializeObject(result));
-            return result;
         }
 
-        public List<Weapon> GetWeapons(DemoParser demo)
+        public void GetWeapons(DemoParser demo)
         {
             throw new System.NotImplementedException();
         }

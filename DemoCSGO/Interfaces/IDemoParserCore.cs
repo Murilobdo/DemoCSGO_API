@@ -7,8 +7,9 @@ namespace DemoCSGO.Core
 {
     public interface IDemoParserCore
     {
-        List<Weapon> GetWeapons(DemoParser demo);
-        List<Weapon> GetWeapons();
+        void GetWeapons(DemoParser demo);
+        void GenerateWeapons();
         void LoadDemo(FileStream demo);
+        void GeneratePlayers();
     }
 }

@@ -1,3 +1,4 @@
+using System.Net;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,34 +17,36 @@ namespace DemoCSGO.Controllers
     [Route("v1/Demo")]
     public class DemoController : ControllerBase
     {
-        [HttpGet]
-        [Route("GetWeapons")]
-        public async Task<ActionResult<List<Weapon>>> GetWeapons([FromServices]IDemoParserCore _core)
-        {
-            try
-            {
-                return _core.GetWeapons();
-            }
-            catch (Exception ex)
-            {
-                 return BadRequest(new {ModelState = ModelState, Message = ex.Message});
-            }
-        } 
+        private readonly string path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
 
         [HttpPost]
-        [Route("LoadDemo")]
-     
-        public async Task<ActionResult> LoadDemo([FromServices]IDemoParserCore _core, [FromBody]FileStream demo)
+        [Route("LoadData")]
+        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
         {
             try
             {
-                _core.LoadDemo(demo);
-                return Ok("Demo carregada.");
+                //_core.GenerateWeapons();
+                _core.GeneratePlayers();
+                return Ok("Dados carregados");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                 return BadRequest(new {ModelState = ModelState, Message = ex.Message});
+                return BadRequest(new {ModelState = ModelState, Message = ex.Message});
             }
+        }
+
+        [HttpGet]
+        [Route("GetWeapons")]
+        public async Task<ActionResult> GetWeapons()
+        {
+            return Ok(System.IO.File.OpenRead(Path.Combine(path, "weapons.json")));
+        }
+
+        [HttpGet]
+        [Route("GetPlayers")]
+        public async Task<ActionResult> GetPlayers()
+        {
+            return Ok(System.IO.File.OpenRead(Path.Combine(path, "players.json")));
         }
 
         [HttpPost]
