@@ -25,9 +25,10 @@ namespace DemoCSGO.Controllers
         {
             try
             {
-                _core.GenerateWeapons();
-                _core.GeneratePlayers();
-                _core.GenerateHeadMap();
+                _core.GenerateData();
+                //_core.GenerateWeapons();
+                //_core.GeneratePlayers();
+                //_core.GenerateHeatMap();
                 return Ok("Dados carregados");
             }
             catch (System.Exception ex)
@@ -51,8 +52,8 @@ namespace DemoCSGO.Controllers
         }
 
         [HttpGet]
-        [Route("GetHeadMap")]
-        public async Task<ActionResult> GetHeadMap()
+        [Route("GetHeatMap")]
+        public async Task<ActionResult> GetHeatMap()
         {
             return Ok(System.IO.File.OpenRead(Path.Combine(Environment.CurrentDirectory, "images", "heat_map.png")));
         }

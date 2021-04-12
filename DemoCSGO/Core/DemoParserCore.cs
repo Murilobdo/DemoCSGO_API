@@ -21,7 +21,99 @@ namespace DemoCSGO.Core
         {
         }
             
-        private void OpenDemo() => _demo = new DemoParser(File.OpenRead("C:\\Downloads_hltv\\vitality-vs-natus-vincere-m3-dust2.dem"));
+        private void OpenDemo() => _demo = new DemoParser(File.OpenRead("C:\\Users\\vitor\\Downloads\\BLAST-Pro-Series-Madrid-2019-astralis-vs-natus-vincere-dust2\\astralis-vs-natus-vincere-dust2.dem"));
+
+        public void GenerateData()
+        {
+            List<Models.Player> result = new List<Models.Player>();
+            List<Weapon> weapons = new List<Weapon>();
+
+            OpenDemo();
+            _demo.ParseHeader();
+            bool hasMatchStarted = false;
+
+            _demo.MatchStarted += (sender, e) => {
+                hasMatchStarted = true;
+            };
+
+            #region GetPlayers
+            _demo.PlayerKilled += (sender, e) => {
+                if (hasMatchStarted)
+                {
+                    //Vitima
+                    if (result.Any(p => p.Name == e.Victim.Name))
+                    {
+                        var victim = result.Where(p => p.Name == e.Victim.Name).First();
+                        victim.Death++;
+                    }
+                    else
+                    {
+                        result.Add(new Models.Player(e.Victim.Name, 0, 1));
+                    }
+
+                    //Assasino
+                    if (result.Any(p => p.Name == e.Killer.Name))
+                    {
+                        var Killer = result.Where(p => p.Name == e.Killer.Name).First();
+                        Killer.Killed++;
+                    }
+                    else
+                    {
+                        result.Add(new Models.Player(e.Killer.Name, 1, 0));
+                    }
+                }
+            };
+            #endregion
+
+            #region GetWeapons
+            _demo.PlayerKilled += (sender, e) => {
+                if (hasMatchStarted)
+                {
+                    string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
+                    if (weapons.Any(p => p.NameWeapon == nameWeaponFired))
+                    {
+                        var weapon = weapons.Where(p => p.NameWeapon == nameWeaponFired).FirstOrDefault();
+                        weapon.DeathQuantity++;
+                    }
+                    else
+                    {
+                        weapons.Add(new Weapon(nameWeaponFired, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                    }
+                }
+            };
+            #endregion
+
+            #region GetHeatMap
+            string nomeJogador = "dupreeh";
+            mapDust2 = MakeMap("de_dust2", -2476, 3239, 4.4f);
+            List<Vector2> shootingPositions = new List<Vector2>();
+            List<Vector2> deathPositions = new List<Vector2>();
+
+            _demo.PlayerKilled += (sender, e) => {
+                if (e.Victim.Name.Contains(nomeJogador) && hasMatchStarted)
+                {
+                    Vector2 vet = TrasnlateScale(e.Victim.LastAlivePosition.X, e.Victim.LastAlivePosition.Y);
+                    deathPositions.Add(vet);
+                }
+            };
+            _demo.WeaponFired += (sender, e) => {
+                if (e.Shooter.Name.Contains(nomeJogador) && hasMatchStarted
+                   && e.Weapon.Weapon != EquipmentElement.Knife && e.Weapon.Weapon != EquipmentElement.Molotov
+                   && e.Weapon.Weapon != EquipmentElement.Smoke && e.Weapon.Weapon != EquipmentElement.Flash
+                   && e.Weapon.Weapon != EquipmentElement.Decoy && e.Weapon.Weapon != EquipmentElement.HE)
+                {
+                    Vector2 vet = TrasnlateScale(e.Shooter.Position.X, e.Shooter.Position.Y);
+                    shootingPositions.Add(vet);
+                }
+            };
+            #endregion
+
+            _demo.ParseToEnd();
+
+            WriteJsonFile("players", JsonConvert.SerializeObject(result));
+            WriteJsonFile("weapons", JsonConvert.SerializeObject(weapons));
+            DrawingPoints(shootingPositions, deathPositions);
+        }
 
         public void GeneratePlayers()
         {
@@ -62,9 +154,11 @@ namespace DemoCSGO.Core
         public void GenerateWeapons()
         {
             List<Weapon> result = new List<Weapon>();
+
             OpenDemo();
             _demo.ParseHeader();
             bool hasMatchStarted = false;
+
             _demo.MatchStarted += (sender, e) => {
                 hasMatchStarted = true;
             };
@@ -96,9 +190,9 @@ namespace DemoCSGO.Core
             _demo = new DemoParser(file);
         }
 
-        public void GenerateHeadMap()
+        public void GenerateHeatMap()
         {
-            string name = "Nivera";
+            string name = "dupreeh";
             mapDust2 = MakeMap("de_dust2", -2476, 3239, 4.4f);
             OpenDemo();
             _demo.ParseHeader();

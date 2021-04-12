@@ -11,6 +11,7 @@ namespace DemoCSGO.Core
         void GenerateWeapons();
         void LoadDemo(FileStream demo);
         void GeneratePlayers();
-        void GenerateHeadMap();
+        void GenerateHeatMap();
+        void GenerateData();
     }
 }
