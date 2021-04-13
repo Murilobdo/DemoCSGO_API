@@ -10,6 +10,7 @@ using DemoCSGO.Models;
 using DemoInfo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace DemoCSGO.Controllers
 {
@@ -23,13 +24,16 @@ namespace DemoCSGO.Controllers
         [Route("LoadData")]
         public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
         {
+            var cronometro = new Stopwatch();
+
             try
             {
+                cronometro.Start();
+
                 _core.GenerateData();
-                //_core.GenerateWeapons();
-                //_core.GeneratePlayers();
-                //_core.GenerateHeatMap();
-                return Ok("Dados carregados");
+
+                cronometro.Stop();
+                return Ok("Dados carregados em " + cronometro.ElapsedMilliseconds / 1000 + "s");
             }
             catch (System.Exception ex)
             {

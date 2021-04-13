@@ -25,7 +25,7 @@ namespace DemoCSGO.Core
 
         public void GenerateData()
         {
-            List<Models.Player> result = new List<Models.Player>();
+            List<Models.Player> players = new List<Models.Player>();
             List<Weapon> weapons = new List<Weapon>();
 
             OpenDemo();
@@ -41,25 +41,25 @@ namespace DemoCSGO.Core
                 if (hasMatchStarted)
                 {
                     //Vitima
-                    if (result.Any(p => p.Name == e.Victim.Name))
+                    if (players.Any(p => p.Name == e.Victim.Name))
                     {
-                        var victim = result.Where(p => p.Name == e.Victim.Name).First();
+                        var victim = players.Where(p => p.Name == e.Victim.Name).First();
                         victim.Death++;
                     }
                     else
                     {
-                        result.Add(new Models.Player(e.Victim.Name, 0, 1));
+                        players.Add(new Models.Player(e.Victim.Name, 0, 1));
                     }
 
                     //Assasino
-                    if (result.Any(p => p.Name == e.Killer.Name))
+                    if (players.Any(p => p.Name == e.Killer.Name))
                     {
-                        var Killer = result.Where(p => p.Name == e.Killer.Name).First();
+                        var Killer = players.Where(p => p.Name == e.Killer.Name).First();
                         Killer.Killed++;
                     }
                     else
                     {
-                        result.Add(new Models.Player(e.Killer.Name, 1, 0));
+                        players.Add(new Models.Player(e.Killer.Name, 1, 0));
                     }
                 }
             };
@@ -110,7 +110,7 @@ namespace DemoCSGO.Core
 
             _demo.ParseToEnd();
 
-            WriteJsonFile("players", JsonConvert.SerializeObject(result));
+            WriteJsonFile("players", JsonConvert.SerializeObject(players));
             WriteJsonFile("weapons", JsonConvert.SerializeObject(weapons));
             DrawingPoints(shootingPositions, deathPositions);
         }
