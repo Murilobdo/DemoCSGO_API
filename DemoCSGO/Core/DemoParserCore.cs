@@ -40,6 +40,8 @@ namespace DemoCSGO.Core
             _demo.PlayerKilled += (sender, e) => {
                 if (hasMatchStarted)
                 {
+                    string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
+
                     //Vitima
                     if (players.Any(p => p.Name == e.Victim.Name))
                     {
@@ -48,19 +50,38 @@ namespace DemoCSGO.Core
                     }
                     else
                     {
-                        players.Add(new Models.Player(e.Victim.Name, 0, 1));
+                        players.Add(new Models.Player(e.Victim.Name, 0, 1, new List<Weapon>()));
                     }
 
                     //Assasino
                     if (players.Any(p => p.Name == e.Killer.Name))
                     {
-                        var Killer = players.Where(p => p.Name == e.Killer.Name).First();
-                        Killer.Killed++;
+                        bool foundWeapon = false;
+                        var killer = players.Where(p => p.Name == e.Killer.Name).First();
+                        killer.Killed++;
+                        
+                        foreach (Weapon weapon in killer.Weapons)
+                        {
+                            if (weapon.NameWeapon == nameWeaponFired)
+                            {
+                                weapon.DeathQuantity++;
+                                foundWeapon = true;
+                            }
+                        }
+                        
+                        if (!foundWeapon)
+                        {
+                            killer.Weapons.Add(new Weapon(nameWeaponFired, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                        }
                     }
                     else
                     {
-                        players.Add(new Models.Player(e.Killer.Name, 1, 0));
+                        players.Add(new Models.Player(e.Killer.Name, 1, 0, new List<Weapon>()));
+                        var killer = players.Where(p => p.Name == e.Killer.Name).First();
+                        killer.Weapons.Add(new Weapon(nameWeaponFired, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
+
+
                 }
             };
             #endregion
@@ -110,8 +131,8 @@ namespace DemoCSGO.Core
 
             _demo.ParseToEnd();
 
-            WriteJsonFile("players", JsonConvert.SerializeObject(players));
-            WriteJsonFile("weapons", JsonConvert.SerializeObject(weapons));
+            WriteJsonFile("players", JsonConvert.SerializeObject(players, Formatting.Indented));
+            WriteJsonFile("weapons", JsonConvert.SerializeObject(weapons, Formatting.Indented));
             DrawingPoints(shootingPositions, deathPositions);
         }
 

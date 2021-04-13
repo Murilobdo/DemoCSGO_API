@@ -1,1 +1,72 @@
-[{"NameWeapon":"Knife","DeathQuantity":8,"WeaponType":"Equipment"},{"NameWeapon":"USP","DeathQuantity":11,"WeaponType":"Pistol"},{"NameWeapon":"Glock","DeathQuantity":7,"WeaponType":"Pistol"},{"NameWeapon":"UMP","DeathQuantity":7,"WeaponType":"SMG"},{"NameWeapon":"AK47","DeathQuantity":55,"WeaponType":"Rifle"},{"NameWeapon":"AWP","DeathQuantity":31,"WeaponType":"Rifle"},{"NameWeapon":"Famas","DeathQuantity":6,"WeaponType":"Rifle"},{"NameWeapon":"Incendiary","DeathQuantity":3,"WeaponType":"Grenade"},{"NameWeapon":"M4A4","DeathQuantity":20,"WeaponType":"Rifle"},{"NameWeapon":"AUG","DeathQuantity":33,"WeaponType":"Rifle"},{"NameWeapon":"Deagle","DeathQuantity":2,"WeaponType":"Pistol"},{"NameWeapon":"CZ","DeathQuantity":4,"WeaponType":"Pistol"},{"NameWeapon":"SG556","DeathQuantity":4,"WeaponType":"Rifle"},{"NameWeapon":"HE","DeathQuantity":2,"WeaponType":"Grenade"}]
+[
+  {
+    "NameWeapon": "Knife",
+    "DeathQuantity": 8,
+    "WeaponType": "Equipment"
+  },
+  {
+    "NameWeapon": "USP",
+    "DeathQuantity": 11,
+    "WeaponType": "Pistol"
+  },
+  {
+    "NameWeapon": "Glock",
+    "DeathQuantity": 7,
+    "WeaponType": "Pistol"
+  },
+  {
+    "NameWeapon": "UMP",
+    "DeathQuantity": 7,
+    "WeaponType": "SMG"
+  },
+  {
+    "NameWeapon": "AK47",
+    "DeathQuantity": 55,
+    "WeaponType": "Rifle"
+  },
+  {
+    "NameWeapon": "AWP",
+    "DeathQuantity": 31,
+    "WeaponType": "Rifle"
+  },
+  {
+    "NameWeapon": "Famas",
+    "DeathQuantity": 6,
+    "WeaponType": "Rifle"
+  },
+  {
+    "NameWeapon": "Incendiary",
+    "DeathQuantity": 3,
+    "WeaponType": "Grenade"
+  },
+  {
+    "NameWeapon": "M4A4",
+    "DeathQuantity": 20,
+    "WeaponType": "Rifle"
+  },
+  {
+    "NameWeapon": "AUG",
+    "DeathQuantity": 33,
+    "WeaponType": "Rifle"
+  },
+  {
+    "NameWeapon": "Deagle",
+    "DeathQuantity": 2,
+    "WeaponType": "Pistol"
+  },
+  {
+    "NameWeapon": "CZ",
+    "DeathQuantity": 4,
+    "WeaponType": "Pistol"
+  },
+  {
+    "NameWeapon": "SG556",
+    "DeathQuantity": 4,
+    "WeaponType": "Rifle"
+  },
+  {
+    "NameWeapon": "HE",
+    "DeathQuantity": 2,
+    "WeaponType": "Grenade"
+  }
+]

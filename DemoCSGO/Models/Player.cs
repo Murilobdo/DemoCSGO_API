@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace DemoCSGO.Models
 {
     public class Player
@@ -9,8 +11,17 @@ namespace DemoCSGO.Models
             Death = death;
         }
 
+        public Player(string name, int killed, int death, List<Weapon> weapons)
+        {
+            Name = name;
+            Killed = killed;
+            Death = death;
+            Weapons = weapons;
+        }
+
         public string Name { get; set; }
         public int Killed { get; set; }
         public int Death { get; set; }
+        public List<Weapon> Weapons { get; set; }
     }
 }
