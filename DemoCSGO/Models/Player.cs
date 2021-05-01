@@ -23,5 +23,13 @@ namespace DemoCSGO.Models
         public int Killed { get; set; }
         public int Death { get; set; }
         public List<Weapon> Weapons { get; set; }
+        public enum Role
+        {
+            Awper,
+            Support,
+            Lurker,
+            Fragger,
+            Leader
+        }
     }
 }
