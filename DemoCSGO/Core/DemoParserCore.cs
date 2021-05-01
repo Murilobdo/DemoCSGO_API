@@ -36,8 +36,6 @@ namespace DemoCSGO.Core
                 hasMatchStarted = true;
             };
 
-            GeneratePlayers();
-
             #region GetPlayers
             _demo.PlayerKilled += (sender, e) => {
                 if (hasMatchStarted)
