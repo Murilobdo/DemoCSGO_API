@@ -14,8 +14,8 @@ namespace DemoCSGO.Models
         }
 
         public string NameWeapon { get; set; }
-        public int DeathQuantity { get; set; } // Quantidade de vezes que MORREU com a arma
         public int KillQuantity { get; set; } // Quantidade de vezes que MATOU com a arma
+        public int DeathQuantity { get; set; } // Quantidade de vezes que MORREU com a arma
         public string WeaponType { get; set; }
     }
 }
