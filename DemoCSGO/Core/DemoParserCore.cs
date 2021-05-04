@@ -45,12 +45,29 @@ namespace DemoCSGO.Core
                     //Vitima
                     if (players.Any(p => p.Name == e.Victim.Name))
                     {
+                        bool foundWeapon = false;
                         var victim = players.Where(p => p.Name == e.Victim.Name).First();
                         victim.Death++;
+
+                        foreach (Weapon weapon in victim.Weapons)
+                        {
+                            if (weapon.NameWeapon.Equals(nameWeaponFired))
+                            {
+                                weapon.DeathQuantity++;
+                                foundWeapon = true;
+                            }
+                        }
+
+                        if (!foundWeapon)
+                        {
+                            victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                        }
                     }
                     else
                     {
                         players.Add(new Models.Player(e.Victim.Name, 0, 1, new List<Weapon>()));
+                        var victim = players.Where(p => p.Name == e.Killer.Name).First();
+                        victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
 
                     //Assasino
@@ -62,23 +79,23 @@ namespace DemoCSGO.Core
                         
                         foreach (Weapon weapon in killer.Weapons)
                         {
-                            if (weapon.NameWeapon == nameWeaponFired)
+                            if (weapon.NameWeapon.Equals(nameWeaponFired))
                             {
-                                weapon.DeathQuantity++;
+                                weapon.KillQuantity++;
                                 foundWeapon = true;
                             }
                         }
                         
                         if (!foundWeapon)
                         {
-                            killer.Weapons.Add(new Weapon(nameWeaponFired, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                            killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                         }
                     }
                     else
                     {
                         players.Add(new Models.Player(e.Killer.Name, 1, 0, new List<Weapon>()));
                         var killer = players.Where(p => p.Name == e.Killer.Name).First();
-                        killer.Weapons.Add(new Weapon(nameWeaponFired, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                        killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
 
 
@@ -94,11 +111,11 @@ namespace DemoCSGO.Core
                     if (weapons.Any(p => p.NameWeapon == nameWeaponFired))
                     {
                         var weapon = weapons.Where(p => p.NameWeapon == nameWeaponFired).FirstOrDefault();
-                        weapon.DeathQuantity++;
+                        weapon.KillQuantity++;
                     }
                     else
                     {
-                        weapons.Add(new Weapon(nameWeaponFired, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                        weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
                 }
             };
@@ -189,10 +206,10 @@ namespace DemoCSGO.Core
                     string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
                     if(result.Any(p => p.NameWeapon == nameWeaponFired)){
                         var weapon = result.Where(p => p.NameWeapon == nameWeaponFired).FirstOrDefault();
-                        weapon.DeathQuantity++;
+                        weapon.KillQuantity++;
                     }
                     else{
-                        result.Add(new Weapon(nameWeaponFired, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                        result.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
                 }
             };
