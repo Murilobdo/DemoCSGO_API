@@ -3,26 +3,68 @@
     "Name": "s1mple",
     "Killed": 22,
     "Death": 17,
+    "FirstKills": 0,
+    "FlashedEnemies": 18,
     "Weapons": [
       {
-        "NameWeapon": "AK47",
-        "DeathQuantity": 9,
-        "WeaponType": "Rifle"
+        "NameWeapon": "Knife",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Equipment"
       },
       {
-        "NameWeapon": "M4A4",
+        "NameWeapon": "USP",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "UMP",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "SMG"
+      },
+      {
+        "NameWeapon": "AK47",
+        "KillQuantity": 9,
         "DeathQuantity": 3,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "AWP",
-        "DeathQuantity": 9,
+        "KillQuantity": 9,
+        "DeathQuantity": 5,
         "WeaponType": "Rifle"
       },
       {
-        "NameWeapon": "Glock",
+        "NameWeapon": "M4A4",
+        "KillQuantity": 3,
+        "DeathQuantity": 1,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "Deagle",
+        "KillQuantity": 0,
         "DeathQuantity": 1,
         "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "Glock",
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "Famas",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "HE",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Grenade"
       }
     ]
   },
@@ -30,40 +72,73 @@
     "Name": "Magisk",
     "Killed": 21,
     "Death": 21,
+    "FirstKills": 0,
+    "FlashedEnemies": 34,
     "Weapons": [
       {
         "NameWeapon": "Knife",
-        "DeathQuantity": 2,
+        "KillQuantity": 2,
+        "DeathQuantity": 1,
         "WeaponType": "Equipment"
       },
       {
-        "NameWeapon": "UMP",
-        "DeathQuantity": 2,
-        "WeaponType": "SMG"
-      },
-      {
-        "NameWeapon": "AK47",
-        "DeathQuantity": 6,
-        "WeaponType": "Rifle"
-      },
-      {
-        "NameWeapon": "Deagle",
+        "NameWeapon": "USP",
+        "KillQuantity": 1,
         "DeathQuantity": 1,
         "WeaponType": "Pistol"
       },
       {
-        "NameWeapon": "USP",
+        "NameWeapon": "UMP",
+        "KillQuantity": 2,
+        "DeathQuantity": 0,
+        "WeaponType": "SMG"
+      },
+      {
+        "NameWeapon": "AWP",
+        "KillQuantity": 0,
+        "DeathQuantity": 3,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "AK47",
+        "KillQuantity": 6,
+        "DeathQuantity": 7,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "AUG",
+        "KillQuantity": 8,
+        "DeathQuantity": 4,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "M4A4",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "Deagle",
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "Glock",
+        "KillQuantity": 0,
         "DeathQuantity": 1,
         "WeaponType": "Pistol"
       },
       {
         "NameWeapon": "Famas",
-        "DeathQuantity": 1,
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
         "WeaponType": "Rifle"
       },
       {
-        "NameWeapon": "AUG",
-        "DeathQuantity": 8,
+        "NameWeapon": "SG556",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
         "WeaponType": "Rifle"
       }
     ]
@@ -72,41 +147,62 @@
     "Name": "gla1ve",
     "Killed": 16,
     "Death": 17,
+    "FirstKills": 0,
+    "FlashedEnemies": 57,
     "Weapons": [
       {
-        "NameWeapon": "UMP",
+        "NameWeapon": "Knife",
+        "KillQuantity": 0,
         "DeathQuantity": 1,
+        "WeaponType": "Equipment"
+      },
+      {
+        "NameWeapon": "UMP",
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
         "WeaponType": "SMG"
       },
       {
-        "NameWeapon": "Deagle",
-        "DeathQuantity": 1,
-        "WeaponType": "Pistol"
-      },
-      {
-        "NameWeapon": "CZ",
-        "DeathQuantity": 1,
-        "WeaponType": "Pistol"
-      },
-      {
-        "NameWeapon": "USP",
-        "DeathQuantity": 3,
-        "WeaponType": "Pistol"
-      },
-      {
-        "NameWeapon": "M4A4",
-        "DeathQuantity": 7,
+        "NameWeapon": "AWP",
+        "KillQuantity": 1,
+        "DeathQuantity": 6,
         "WeaponType": "Rifle"
       },
       {
-        "NameWeapon": "AWP",
-        "DeathQuantity": 1,
+        "NameWeapon": "M4A4",
+        "KillQuantity": 7,
+        "DeathQuantity": 3,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "AUG",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "AK47",
-        "DeathQuantity": 2,
+        "KillQuantity": 2,
+        "DeathQuantity": 5,
         "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "Deagle",
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "CZ",
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "USP",
+        "KillQuantity": 3,
+        "DeathQuantity": 0,
+        "WeaponType": "Pistol"
       }
     ]
   },
@@ -114,30 +210,67 @@
     "Name": "flamie",
     "Killed": 13,
     "Death": 20,
+    "FirstKills": 0,
+    "FlashedEnemies": 21,
     "Weapons": [
       {
         "NameWeapon": "Knife",
+        "KillQuantity": 1,
         "DeathQuantity": 1,
         "WeaponType": "Equipment"
       },
       {
+        "NameWeapon": "Glock",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "UMP",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "SMG"
+      },
+      {
         "NameWeapon": "AK47",
-        "DeathQuantity": 2,
+        "KillQuantity": 2,
+        "DeathQuantity": 4,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "AWP",
+        "KillQuantity": 4,
         "DeathQuantity": 4,
         "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "CZ",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Pistol"
       },
       {
         "NameWeapon": "AUG",
-        "DeathQuantity": 2,
+        "KillQuantity": 2,
+        "DeathQuantity": 5,
         "WeaponType": "Rifle"
       },
       {
+        "NameWeapon": "USP",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "Pistol"
+      },
+      {
         "NameWeapon": "SG556",
-        "DeathQuantity": 4,
+        "KillQuantity": 4,
+        "DeathQuantity": 0,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "Famas",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
         "WeaponType": "Rifle"
       }
     ]
@@ -146,34 +279,66 @@
     "Name": "Xyp9x",
     "Killed": 11,
     "Death": 18,
+    "FirstKills": 0,
+    "FlashedEnemies": 50,
     "Weapons": [
       {
-        "NameWeapon": "Glock",
+        "NameWeapon": "Knife",
+        "KillQuantity": 0,
         "DeathQuantity": 1,
+        "WeaponType": "Equipment"
+      },
+      {
+        "NameWeapon": "Glock",
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
         "WeaponType": "Pistol"
       },
       {
+        "NameWeapon": "Famas",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Rifle"
+      },
+      {
         "NameWeapon": "Incendiary",
+        "KillQuantity": 1,
         "DeathQuantity": 1,
         "WeaponType": "Grenade"
       },
       {
-        "NameWeapon": "UMP",
-        "DeathQuantity": 1,
-        "WeaponType": "SMG"
-      },
-      {
-        "NameWeapon": "HE",
-        "DeathQuantity": 2,
-        "WeaponType": "Grenade"
-      },
-      {
-        "NameWeapon": "AUG",
-        "DeathQuantity": 5,
+        "NameWeapon": "AK47",
+        "KillQuantity": 0,
+        "DeathQuantity": 8,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "M4A4",
+        "KillQuantity": 1,
+        "DeathQuantity": 3,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "AUG",
+        "KillQuantity": 5,
+        "DeathQuantity": 3,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "UMP",
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
+        "WeaponType": "SMG"
+      },
+      {
+        "NameWeapon": "HE",
+        "KillQuantity": 2,
+        "DeathQuantity": 0,
+        "WeaponType": "Grenade"
+      },
+      {
+        "NameWeapon": "SG556",
+        "KillQuantity": 0,
         "DeathQuantity": 1,
         "WeaponType": "Rifle"
       }
@@ -183,30 +348,61 @@
     "Name": "electronic",
     "Killed": 17,
     "Death": 20,
+    "FirstKills": 0,
+    "FlashedEnemies": 36,
     "Weapons": [
       {
         "NameWeapon": "Knife",
-        "DeathQuantity": 1,
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
         "WeaponType": "Equipment"
       },
       {
         "NameWeapon": "USP",
+        "KillQuantity": 1,
+        "DeathQuantity": 2,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "Glock",
+        "KillQuantity": 0,
         "DeathQuantity": 1,
         "WeaponType": "Pistol"
       },
       {
-        "NameWeapon": "AWP",
-        "DeathQuantity": 3,
+        "NameWeapon": "AK47",
+        "KillQuantity": 9,
+        "DeathQuantity": 6,
         "WeaponType": "Rifle"
       },
       {
-        "NameWeapon": "AK47",
-        "DeathQuantity": 9,
+        "NameWeapon": "AWP",
+        "KillQuantity": 3,
+        "DeathQuantity": 2,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "M4A4",
+        "KillQuantity": 3,
         "DeathQuantity": 3,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "Famas",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "HE",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Grenade"
+      },
+      {
+        "NameWeapon": "AUG",
+        "KillQuantity": 0,
+        "DeathQuantity": 4,
         "WeaponType": "Rifle"
       }
     ]
@@ -215,25 +411,61 @@
     "Name": "device",
     "Killed": 17,
     "Death": 20,
+    "FirstKills": 0,
+    "FlashedEnemies": 32,
     "Weapons": [
       {
+        "NameWeapon": "Knife",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Equipment"
+      },
+      {
         "NameWeapon": "USP",
-        "DeathQuantity": 3,
+        "KillQuantity": 3,
+        "DeathQuantity": 1,
         "WeaponType": "Pistol"
       },
       {
+        "NameWeapon": "UMP",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "SMG"
+      },
+      {
+        "NameWeapon": "AK47",
+        "KillQuantity": 2,
+        "DeathQuantity": 6,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "AUG",
+        "KillQuantity": 0,
+        "DeathQuantity": 4,
+        "WeaponType": "Rifle"
+      },
+      {
         "NameWeapon": "AWP",
-        "DeathQuantity": 9,
+        "KillQuantity": 9,
+        "DeathQuantity": 4,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "M4A4",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "CZ",
-        "DeathQuantity": 3,
+        "KillQuantity": 3,
+        "DeathQuantity": 0,
         "WeaponType": "Pistol"
       },
       {
-        "NameWeapon": "AK47",
-        "DeathQuantity": 2,
+        "NameWeapon": "SG556",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
         "WeaponType": "Rifle"
       }
     ]
@@ -242,36 +474,68 @@
     "Name": "Zeus",
     "Killed": 15,
     "Death": 22,
+    "FirstKills": 0,
+    "FlashedEnemies": 38,
     "Weapons": [
       {
         "NameWeapon": "Knife",
+        "KillQuantity": 1,
         "DeathQuantity": 1,
         "WeaponType": "Equipment"
       },
       {
+        "NameWeapon": "Glock",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "Pistol"
+      },
+      {
         "NameWeapon": "UMP",
-        "DeathQuantity": 1,
+        "KillQuantity": 1,
+        "DeathQuantity": 2,
         "WeaponType": "SMG"
       },
       {
         "NameWeapon": "AUG",
+        "KillQuantity": 4,
         "DeathQuantity": 4,
         "WeaponType": "Rifle"
       },
       {
-        "NameWeapon": "M4A4",
-        "DeathQuantity": 3,
+        "NameWeapon": "AK47",
+        "KillQuantity": 5,
+        "DeathQuantity": 6,
         "WeaponType": "Rifle"
       },
       {
-        "NameWeapon": "AK47",
-        "DeathQuantity": 5,
+        "NameWeapon": "M4A4",
+        "KillQuantity": 3,
+        "DeathQuantity": 2,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "AWP",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "Incendiary",
-        "DeathQuantity": 1,
+        "KillQuantity": 1,
+        "DeathQuantity": 0,
         "WeaponType": "Grenade"
+      },
+      {
+        "NameWeapon": "CZ",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "USP",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "Pistol"
       }
     ]
   },
@@ -279,46 +543,62 @@
     "Name": "dupreeh",
     "Killed": 29,
     "Death": 21,
+    "FirstKills": 0,
+    "FlashedEnemies": 50,
     "Weapons": [
       {
         "NameWeapon": "Knife",
+        "KillQuantity": 1,
         "DeathQuantity": 1,
         "WeaponType": "Equipment"
       },
       {
         "NameWeapon": "Glock",
-        "DeathQuantity": 3,
+        "KillQuantity": 3,
+        "DeathQuantity": 2,
         "WeaponType": "Pistol"
       },
       {
         "NameWeapon": "AK47",
-        "DeathQuantity": 11,
-        "WeaponType": "Rifle"
-      },
-      {
-        "NameWeapon": "USP",
-        "DeathQuantity": 2,
-        "WeaponType": "Pistol"
-      },
-      {
-        "NameWeapon": "Famas",
-        "DeathQuantity": 4,
+        "KillQuantity": 11,
+        "DeathQuantity": 7,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "AWP",
-        "DeathQuantity": 5,
+        "KillQuantity": 5,
+        "DeathQuantity": 3,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "AUG",
+        "KillQuantity": 1,
+        "DeathQuantity": 6,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "M4A4",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "USP",
+        "KillQuantity": 2,
+        "DeathQuantity": 0,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "Famas",
+        "KillQuantity": 4,
+        "DeathQuantity": 0,
         "WeaponType": "Rifle"
       },
       {
         "NameWeapon": "UMP",
-        "DeathQuantity": 2,
+        "KillQuantity": 2,
+        "DeathQuantity": 0,
         "WeaponType": "SMG"
-      },
-      {
-        "NameWeapon": "AUG",
-        "DeathQuantity": 1,
-        "WeaponType": "Rifle"
       }
     ]
   },
@@ -326,45 +606,79 @@
     "Name": "Edward",
     "Killed": 32,
     "Death": 17,
+    "FirstKills": 0,
+    "FlashedEnemies": 26,
     "Weapons": [
       {
         "NameWeapon": "Knife",
-        "DeathQuantity": 2,
+        "KillQuantity": 2,
+        "DeathQuantity": 0,
         "WeaponType": "Equipment"
       },
       {
         "NameWeapon": "USP",
+        "KillQuantity": 1,
         "DeathQuantity": 1,
-        "WeaponType": "Pistol"
-      },
-      {
-        "NameWeapon": "Famas",
-        "DeathQuantity": 1,
-        "WeaponType": "Rifle"
-      },
-      {
-        "NameWeapon": "M4A4",
-        "DeathQuantity": 3,
-        "WeaponType": "Rifle"
-      },
-      {
-        "NameWeapon": "AUG",
-        "DeathQuantity": 13,
-        "WeaponType": "Rifle"
-      },
-      {
-        "NameWeapon": "Incendiary",
-        "DeathQuantity": 1,
-        "WeaponType": "Grenade"
-      },
-      {
-        "NameWeapon": "Glock",
-        "DeathQuantity": 2,
         "WeaponType": "Pistol"
       },
       {
         "NameWeapon": "AK47",
-        "DeathQuantity": 9,
+        "KillQuantity": 9,
+        "DeathQuantity": 3,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "Famas",
+        "KillQuantity": 1,
+        "DeathQuantity": 1,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "Incendiary",
+        "KillQuantity": 1,
+        "DeathQuantity": 2,
+        "WeaponType": "Grenade"
+      },
+      {
+        "NameWeapon": "M4A4",
+        "KillQuantity": 3,
+        "DeathQuantity": 2,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "AUG",
+        "KillQuantity": 13,
+        "DeathQuantity": 1,
+        "WeaponType": "Rifle"
+      },
+      {
+        "NameWeapon": "Deagle",
+        "KillQuantity": 0,
+        "DeathQuantity": 1,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "Glock",
+        "KillQuantity": 2,
+        "DeathQuantity": 0,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "UMP",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "SMG"
+      },
+      {
+        "NameWeapon": "CZ",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
+        "WeaponType": "Pistol"
+      },
+      {
+        "NameWeapon": "AWP",
+        "KillQuantity": 0,
+        "DeathQuantity": 2,
         "WeaponType": "Rifle"
       }
     ]

@@ -1,72 +1,86 @@
 [
   {
     "NameWeapon": "Knife",
-    "DeathQuantity": 8,
+    "KillQuantity": 8,
+    "DeathQuantity": 0,
     "WeaponType": "Equipment"
   },
   {
     "NameWeapon": "USP",
-    "DeathQuantity": 11,
+    "KillQuantity": 11,
+    "DeathQuantity": 0,
     "WeaponType": "Pistol"
   },
   {
     "NameWeapon": "Glock",
-    "DeathQuantity": 7,
+    "KillQuantity": 7,
+    "DeathQuantity": 0,
     "WeaponType": "Pistol"
   },
   {
     "NameWeapon": "UMP",
-    "DeathQuantity": 7,
+    "KillQuantity": 7,
+    "DeathQuantity": 0,
     "WeaponType": "SMG"
   },
   {
     "NameWeapon": "AK47",
-    "DeathQuantity": 55,
+    "KillQuantity": 55,
+    "DeathQuantity": 0,
     "WeaponType": "Rifle"
   },
   {
     "NameWeapon": "AWP",
-    "DeathQuantity": 31,
+    "KillQuantity": 31,
+    "DeathQuantity": 0,
     "WeaponType": "Rifle"
   },
   {
     "NameWeapon": "Famas",
-    "DeathQuantity": 6,
+    "KillQuantity": 6,
+    "DeathQuantity": 0,
     "WeaponType": "Rifle"
   },
   {
     "NameWeapon": "Incendiary",
-    "DeathQuantity": 3,
+    "KillQuantity": 3,
+    "DeathQuantity": 0,
     "WeaponType": "Grenade"
   },
   {
     "NameWeapon": "M4A4",
-    "DeathQuantity": 20,
+    "KillQuantity": 20,
+    "DeathQuantity": 0,
     "WeaponType": "Rifle"
   },
   {
     "NameWeapon": "AUG",
-    "DeathQuantity": 33,
+    "KillQuantity": 33,
+    "DeathQuantity": 0,
     "WeaponType": "Rifle"
   },
   {
     "NameWeapon": "Deagle",
-    "DeathQuantity": 2,
+    "KillQuantity": 2,
+    "DeathQuantity": 0,
     "WeaponType": "Pistol"
   },
   {
     "NameWeapon": "CZ",
-    "DeathQuantity": 4,
+    "KillQuantity": 4,
+    "DeathQuantity": 0,
     "WeaponType": "Pistol"
   },
   {
     "NameWeapon": "SG556",
-    "DeathQuantity": 4,
+    "KillQuantity": 4,
+    "DeathQuantity": 0,
     "WeaponType": "Rifle"
   },
   {
     "NameWeapon": "HE",
-    "DeathQuantity": 2,
+    "KillQuantity": 2,
+    "DeathQuantity": 0,
     "WeaponType": "Grenade"
   }
 ]
