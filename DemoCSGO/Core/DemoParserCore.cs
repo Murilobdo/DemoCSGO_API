@@ -49,6 +49,8 @@ namespace DemoCSGO.Core
                         var victim = players.Where(p => p.Name == e.Victim.Name).First();
                         victim.Death++;
 
+                        var armas = e.Victim.Weapons;
+
                         foreach (Weapon weapon in victim.Weapons)
                         {
                             if (weapon.NameWeapon.Equals(nameWeaponFired))
@@ -66,7 +68,7 @@ namespace DemoCSGO.Core
                     else
                     {
                         players.Add(new Models.Player(e.Victim.Name, 0, 1, new List<Weapon>()));
-                        var victim = players.Where(p => p.Name == e.Killer.Name).First();
+                        var victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
                         victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
 
@@ -94,7 +96,7 @@ namespace DemoCSGO.Core
                     else
                     {
                         players.Add(new Models.Player(e.Killer.Name, 1, 0, new List<Weapon>()));
-                        var killer = players.Where(p => p.Name == e.Killer.Name).First();
+                        var killer = players.Where(p => p.Name == e.Killer.Name).FirstOrDefault();
                         killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
 
