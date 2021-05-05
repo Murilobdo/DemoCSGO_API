@@ -3,7 +3,8 @@
     "Name": "s1mple",
     "Killed": 22,
     "Death": 17,
-    "FirstKills": 0,
+    "FirstKills": 2,
+    "FirstDeaths": 1,
     "FlashedEnemies": 18,
     "Weapons": [
       {
@@ -72,7 +73,8 @@
     "Name": "Magisk",
     "Killed": 21,
     "Death": 21,
-    "FirstKills": 0,
+    "FirstKills": 4,
+    "FirstDeaths": 3,
     "FlashedEnemies": 34,
     "Weapons": [
       {
@@ -147,7 +149,8 @@
     "Name": "gla1ve",
     "Killed": 16,
     "Death": 17,
-    "FirstKills": 0,
+    "FirstKills": 2,
+    "FirstDeaths": 4,
     "FlashedEnemies": 57,
     "Weapons": [
       {
@@ -210,7 +213,8 @@
     "Name": "flamie",
     "Killed": 13,
     "Death": 20,
-    "FirstKills": 0,
+    "FirstKills": 1,
+    "FirstDeaths": 3,
     "FlashedEnemies": 21,
     "Weapons": [
       {
@@ -279,7 +283,8 @@
     "Name": "Xyp9x",
     "Killed": 11,
     "Death": 18,
-    "FirstKills": 0,
+    "FirstKills": 5,
+    "FirstDeaths": 5,
     "FlashedEnemies": 50,
     "Weapons": [
       {
@@ -348,7 +353,8 @@
     "Name": "electronic",
     "Killed": 17,
     "Death": 20,
-    "FirstKills": 0,
+    "FirstKills": 9,
+    "FirstDeaths": 8,
     "FlashedEnemies": 36,
     "Weapons": [
       {
@@ -412,6 +418,7 @@
     "Killed": 17,
     "Death": 20,
     "FirstKills": 0,
+    "FirstDeaths": 1,
     "FlashedEnemies": 32,
     "Weapons": [
       {
@@ -474,7 +481,8 @@
     "Name": "Zeus",
     "Killed": 15,
     "Death": 22,
-    "FirstKills": 0,
+    "FirstKills": 3,
+    "FirstDeaths": 2,
     "FlashedEnemies": 38,
     "Weapons": [
       {
@@ -543,7 +551,8 @@
     "Name": "dupreeh",
     "Killed": 29,
     "Death": 21,
-    "FirstKills": 0,
+    "FirstKills": 2,
+    "FirstDeaths": 3,
     "FlashedEnemies": 50,
     "Weapons": [
       {
@@ -606,7 +615,8 @@
     "Name": "Edward",
     "Killed": 32,
     "Death": 17,
-    "FirstKills": 0,
+    "FirstKills": 2,
+    "FirstDeaths": 0,
     "FlashedEnemies": 26,
     "Weapons": [
       {

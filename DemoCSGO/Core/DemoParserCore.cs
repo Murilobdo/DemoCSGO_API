@@ -27,6 +27,7 @@ namespace DemoCSGO.Core
         {
             List<Models.Player> players = new List<Models.Player>();
             List<Weapon> weapons = new List<Weapon>();
+            bool firstKillFlag = true;
 
             OpenDemo();
             _demo.ParseHeader();
@@ -34,6 +35,10 @@ namespace DemoCSGO.Core
 
             _demo.MatchStarted += (sender, e) => {
                 hasMatchStarted = true;
+            };
+
+            _demo.RoundStart += (sender, e) => {
+                firstKillFlag = true;
             };
 
             #region GetBlindedEnemies
@@ -57,7 +62,7 @@ namespace DemoCSGO.Core
             };
             #endregion
 
-            #region GetPlayers
+            #region GetPlayersStats
             _demo.PlayerKilled += (sender, e) => {
                 if (hasMatchStarted)
                 {
@@ -69,6 +74,9 @@ namespace DemoCSGO.Core
                         bool foundWeapon = false;
                         var victim = players.Where(p => p.Name == e.Victim.Name).First();
                         victim.Death++;
+
+                        //if (firstKillFlag)
+                        //    victim.FirstDeaths++;
 
                         foreach (Weapon weapon in victim.Weapons)
                         {
@@ -97,6 +105,14 @@ namespace DemoCSGO.Core
                         bool foundWeapon = false;
                         var killer = players.Where(p => p.Name == e.Killer.Name).First();
                         killer.Killed++;
+
+                        if (firstKillFlag)
+                        {
+                            killer.FirstKills++;
+                            var victim = players.Where(p => p.Name == e.Victim.Name).First();
+                            victim.FirstDeaths++;
+                            firstKillFlag = false;
+                        }
                         
                         foreach (Weapon weapon in killer.Weapons)
                         {
@@ -118,8 +134,6 @@ namespace DemoCSGO.Core
                         var killer = players.Where(p => p.Name == e.Killer.Name).FirstOrDefault();
                         killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
-
-
                 }
             };
             #endregion
