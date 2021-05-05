@@ -23,8 +23,8 @@ namespace DemoCSGO.Models
         public string Name { get; set; }
         public int Killed { get; set; }
         public int Death { get; set; }
-        public int FirstKills { get; set; }
-        public int FirstDeaths { get; set; }
+        public int FirstKills { get; set; } // Primeiro abate em uma rodada
+        public int FirstDeaths { get; set; } // Sofreu a primeira morte durante a rodada
         public int FlashedEnemies { get; set; } // Inimigos que o jogador atingiu com a granada Flash
         public List<Weapon> Weapons { get; set; }
         public enum Role
