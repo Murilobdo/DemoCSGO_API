@@ -1,10 +1,11 @@
 [
   {
     "Name": "s1mple",
+    "TeamName": "Natus Vincere",
     "Killed": 22,
     "Death": 17,
-    "FirstKills": 2,
-    "FirstDeaths": 1,
+    "FirstKills": 22,
+    "FirstDeaths": 16,
     "FlashedEnemies": 18,
     "Weapons": [
       {
@@ -71,10 +72,11 @@
   },
   {
     "Name": "Magisk",
+    "TeamName": "Astralis",
     "Killed": 21,
     "Death": 21,
-    "FirstKills": 4,
-    "FirstDeaths": 3,
+    "FirstKills": 20,
+    "FirstDeaths": 20,
     "FlashedEnemies": 34,
     "Weapons": [
       {
@@ -147,10 +149,11 @@
   },
   {
     "Name": "gla1ve",
+    "TeamName": "Astralis",
     "Killed": 16,
     "Death": 17,
-    "FirstKills": 2,
-    "FirstDeaths": 4,
+    "FirstKills": 16,
+    "FirstDeaths": 16,
     "FlashedEnemies": 57,
     "Weapons": [
       {
@@ -211,10 +214,11 @@
   },
   {
     "Name": "flamie",
+    "TeamName": "Natus Vincere",
     "Killed": 13,
     "Death": 20,
-    "FirstKills": 1,
-    "FirstDeaths": 3,
+    "FirstKills": 12,
+    "FirstDeaths": 20,
     "FlashedEnemies": 21,
     "Weapons": [
       {
@@ -281,10 +285,11 @@
   },
   {
     "Name": "Xyp9x",
+    "TeamName": "Astralis",
     "Killed": 11,
     "Death": 18,
-    "FirstKills": 5,
-    "FirstDeaths": 5,
+    "FirstKills": 11,
+    "FirstDeaths": 17,
     "FlashedEnemies": 50,
     "Weapons": [
       {
@@ -351,10 +356,11 @@
   },
   {
     "Name": "electronic",
+    "TeamName": "Natus Vincere",
     "Killed": 17,
     "Death": 20,
-    "FirstKills": 9,
-    "FirstDeaths": 8,
+    "FirstKills": 16,
+    "FirstDeaths": 20,
     "FlashedEnemies": 36,
     "Weapons": [
       {
@@ -415,10 +421,11 @@
   },
   {
     "Name": "device",
+    "TeamName": "Astralis",
     "Killed": 17,
     "Death": 20,
-    "FirstKills": 0,
-    "FirstDeaths": 1,
+    "FirstKills": 17,
+    "FirstDeaths": 19,
     "FlashedEnemies": 32,
     "Weapons": [
       {
@@ -479,10 +486,11 @@
   },
   {
     "Name": "Zeus",
+    "TeamName": "Natus Vincere",
     "Killed": 15,
     "Death": 22,
-    "FirstKills": 3,
-    "FirstDeaths": 2,
+    "FirstKills": 14,
+    "FirstDeaths": 21,
     "FlashedEnemies": 38,
     "Weapons": [
       {
@@ -549,10 +557,11 @@
   },
   {
     "Name": "dupreeh",
+    "TeamName": "Astralis",
     "Killed": 29,
     "Death": 21,
-    "FirstKills": 2,
-    "FirstDeaths": 3,
+    "FirstKills": 28,
+    "FirstDeaths": 21,
     "FlashedEnemies": 50,
     "Weapons": [
       {
@@ -613,10 +622,11 @@
   },
   {
     "Name": "Edward",
+    "TeamName": "Natus Vincere",
     "Killed": 32,
     "Death": 17,
-    "FirstKills": 2,
-    "FirstDeaths": 0,
+    "FirstKills": 31,
+    "FirstDeaths": 17,
     "FlashedEnemies": 26,
     "Weapons": [
       {

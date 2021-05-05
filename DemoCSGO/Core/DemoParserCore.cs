@@ -75,8 +75,7 @@ namespace DemoCSGO.Core
                         var victim = players.Where(p => p.Name == e.Victim.Name).First();
                         victim.Death++;
 
-                        //if (firstKillFlag)
-                        //    victim.FirstDeaths++;
+                        SetPlayerTeamName(e.Victim, victim);
 
                         foreach (Weapon weapon in victim.Weapons)
                         {
@@ -105,6 +104,8 @@ namespace DemoCSGO.Core
                         bool foundWeapon = false;
                         var killer = players.Where(p => p.Name == e.Killer.Name).First();
                         killer.Killed++;
+
+                        SetPlayerTeamName(e.Killer, killer);
 
                         if (firstKillFlag)
                         {
@@ -186,6 +187,14 @@ namespace DemoCSGO.Core
             WriteJsonFile("players", JsonConvert.SerializeObject(players, Formatting.Indented));
             WriteJsonFile("weapons", JsonConvert.SerializeObject(weapons, Formatting.Indented));
             DrawingPoints(shootingPositions, deathPositions);
+        }
+
+        private void SetPlayerTeamName(DemoInfo.Player player, Models.Player victim)
+        {
+            if (player.Team == Team.Terrorist)
+                victim.TeamName = _demo.TClanName;
+            else
+                victim.TeamName = _demo.CTClanName;
         }
 
         public int BlindedEnemies(DemoInfo.Player[] players, DemoInfo.Player playerThrownBy)

@@ -21,6 +21,7 @@ namespace DemoCSGO.Models
         }
 
         public string Name { get; set; }
+        public string TeamName { get; set; }
         public int Killed { get; set; }
         public int Death { get; set; }
         public int FirstKills { get; set; } // Primeiro abate em uma rodada
