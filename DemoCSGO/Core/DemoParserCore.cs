@@ -27,6 +27,7 @@ namespace DemoCSGO.Core
         {
             List<Models.Player> players = new List<Models.Player>();
             List<Weapon> weapons = new List<Weapon>();
+            bool firstKillFlag = true;
 
             OpenDemo();
             _demo.ParseHeader();
@@ -34,6 +35,10 @@ namespace DemoCSGO.Core
 
             _demo.MatchStarted += (sender, e) => {
                 hasMatchStarted = true;
+            };
+
+            _demo.RoundStart += (sender, e) => {
+                firstKillFlag = true;
             };
 
             #region GetBlindedEnemies
@@ -57,7 +62,7 @@ namespace DemoCSGO.Core
             };
             #endregion
 
-            #region GetPlayers
+            #region GetPlayersStats
             _demo.PlayerKilled += (sender, e) => {
                 if (hasMatchStarted)
                 {
@@ -69,6 +74,8 @@ namespace DemoCSGO.Core
                         bool foundWeapon = false;
                         var victim = players.Where(p => p.Name == e.Victim.Name).First();
                         victim.Death++;
+
+                        SetPlayerTeamName(e.Victim, victim);
 
                         foreach (Weapon weapon in victim.Weapons)
                         {
@@ -97,6 +104,16 @@ namespace DemoCSGO.Core
                         bool foundWeapon = false;
                         var killer = players.Where(p => p.Name == e.Killer.Name).First();
                         killer.Killed++;
+
+                        SetPlayerTeamName(e.Killer, killer);
+
+                        if (firstKillFlag)
+                        {
+                            killer.FirstKills++;
+                            var victim = players.Where(p => p.Name == e.Victim.Name).First();
+                            victim.FirstDeaths++;
+                            firstKillFlag = false;
+                        }
                         
                         foreach (Weapon weapon in killer.Weapons)
                         {
@@ -118,8 +135,6 @@ namespace DemoCSGO.Core
                         var killer = players.Where(p => p.Name == e.Killer.Name).FirstOrDefault();
                         killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                     }
-
-
                 }
             };
             #endregion
@@ -172,6 +187,14 @@ namespace DemoCSGO.Core
             WriteJsonFile("players", JsonConvert.SerializeObject(players, Formatting.Indented));
             WriteJsonFile("weapons", JsonConvert.SerializeObject(weapons, Formatting.Indented));
             DrawingPoints(shootingPositions, deathPositions);
+        }
+
+        private void SetPlayerTeamName(DemoInfo.Player player, Models.Player victim)
+        {
+            if (player.Team == Team.Terrorist)
+                victim.TeamName = _demo.TClanName;
+            else
+                victim.TeamName = _demo.CTClanName;
         }
 
         public int BlindedEnemies(DemoInfo.Player[] players, DemoInfo.Player playerThrownBy)
