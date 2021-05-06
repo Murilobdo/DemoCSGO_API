@@ -42,17 +42,10 @@ namespace DemoCSGO.Controllers
         }
 
         [HttpGet]
-        [Route("GetWeapons")]
-        public async Task<ActionResult> GetWeapons()
-        {
-            return Ok(System.IO.File.OpenRead(Path.Combine(path, "weapons.json")));
-        }
-
-        [HttpGet]
         [Route("GetPlayers")]
         public async Task<ActionResult> GetPlayers()
         {
-            return Ok(System.IO.File.OpenRead(Path.Combine(path, "players.json")));
+            return Ok(System.IO.File.OpenRead(Path.Combine(path, "players_stats.json")));
         }
 
         [HttpGet]
@@ -60,23 +53,6 @@ namespace DemoCSGO.Controllers
         public async Task<ActionResult> GetHeatMap()
         {
             return Ok(System.IO.File.OpenRead(Path.Combine(Environment.CurrentDirectory, "images", "heat_map.png")));
-        }
-
-        [HttpPost]
-        [Route("LoadDemo2")]
-        [RequestSizeLimit(10L * 1024L * 1024L)]
-        [DisableFormValueModelBindingAttribute]
-        [RequestFormLimits(MultipartBodyLengthLimit = 10L * 1024L * 1024L)]
-        public async Task<ActionResult> LoadDemo2(IFormFile demo)
-        {
-            try
-            {
-                return Ok("Demo carregada.");
-            }
-            catch (Exception ex)
-            {
-                 return BadRequest(new {ModelState = ModelState, Message = ex.Message});
-            }
         }
     }
 }

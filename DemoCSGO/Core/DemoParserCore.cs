@@ -41,6 +41,7 @@ namespace DemoCSGO.Core
                 hasMatchStarted = true;
             };
 
+            #region RoundStart Event
             _demo.RoundStart += (sender, e) => {
                 firstKillFlag = true;
 
@@ -55,15 +56,7 @@ namespace DemoCSGO.Core
                         player.IsAlive = true;
                 }
             };
-
-            _demo.ExplosiveNadeExploded += (sender, e) => {
-
-            };
-
-            _demo.RoundEnd += (sender, e) => {
-                var participants = _demo.Participants;
-
-            };
+            #endregion
 
             #region GetBlindedEnemies
             _demo.FlashNadeExploded += (sender, e) =>
@@ -132,7 +125,6 @@ namespace DemoCSGO.Core
 
                         if (IsAllPlayersRegistered(players))
                             (lastAliveCT, lastAliveTR) = SetLastAliveQuantity(players, lastAliveCT, lastAliveTR);
-                        //lurkerFlag = SetLastAliveQuantity(players, lurkerFlag);
 
                         if (firstKillFlag)
                         {
@@ -168,24 +160,6 @@ namespace DemoCSGO.Core
             };
             #endregion
 
-            #region GetWeapons
-            _demo.PlayerKilled += (sender, e) => {
-                if (hasMatchStarted)
-                {
-                    string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
-                    if (weapons.Any(p => p.NameWeapon == nameWeaponFired))
-                    {
-                        var weapon = weapons.Where(p => p.NameWeapon == nameWeaponFired).FirstOrDefault();
-                        weapon.KillQuantity++;
-                    }
-                    else
-                    {
-                        weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
-                    }
-                }
-            };
-            #endregion
-
             #region GetHeatMap
             string nomeJogador = "dupreeh";
             mapDust2 = MakeMap("de_dust2", -2476, 3239, 4.4f);
@@ -213,8 +187,7 @@ namespace DemoCSGO.Core
 
             _demo.ParseToEnd();
 
-            WriteJsonFile("players", JsonConvert.SerializeObject(players, Formatting.Indented));
-            WriteJsonFile("weapons", JsonConvert.SerializeObject(weapons, Formatting.Indented));
+            WriteJsonFile("players_stats", JsonConvert.SerializeObject(players, Formatting.Indented));
             DrawingPoints(shootingPositions, deathPositions);
         }
 
