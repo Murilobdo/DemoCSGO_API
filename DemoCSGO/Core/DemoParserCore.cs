@@ -31,6 +31,7 @@ namespace DemoCSGO.Core
             bool firstKillFlag = true;
             bool lastAliveTR = false;
             bool lastAliveCT = false;
+            bool roundStarted = false;
             int roundCount = 0;
 
             OpenDemo();
@@ -41,10 +42,33 @@ namespace DemoCSGO.Core
                 hasMatchStarted = true;
             };
 
+            #region SetDistanceTraveled and WalkQuantity
+            _demo.TickDone += (sender, e) => { 
+                if (hasMatchStarted && IsAllPlayersRegistered(players) && roundStarted && _demo.Participants != null)
+                {
+                    foreach (var player in players)
+                    {
+                        var jogador = _demo.Participants.Where(p => p.Name == player.Name).FirstOrDefault();
+                        if (jogador != null)
+                        {
+                            player.DistanceTraveled += (jogador.Velocity.Absolute * _demo.TickTime);
+                            player.DistanceTraveled = Math.Round(player.DistanceTraveled, 2);
+
+                            if (IsPlayerWalking(jogador))
+                                player.WalkQuantity++;
+                        }
+                    }
+                }
+            };
+            #endregion
+
             #region RoundStart Event
             _demo.RoundStart += (sender, e) => {
                 firstKillFlag = true;
+                roundStarted = true;
                 roundCount++;
+
+                var test = _demo.Participants;
                 
                 if (IsAllPlayersRegistered(players))
                 {
@@ -61,16 +85,14 @@ namespace DemoCSGO.Core
             };
             #endregion
 
+            #region RoundEnd Event
             _demo.RoundEnd += (sender, e) =>
             {
-                foreach (var player in players)
-                {
-                    if (player.IsLastAliveThisRound && player.TeamSide == Team.Terrorist && e.Reason == RoundEndReason.TerroristWin)
-                        player.Clutches++;
-                    else if (player.IsLastAliveThisRound && player.TeamSide == Team.CounterTerrorist && e.Reason == RoundEndReason.CTWin)
-                        player.Clutches++;
-                }
+                roundStarted = false;
+
+                SetClutches(players, e);
             };
+            #endregion
 
             #region GetBlindedEnemies
             _demo.FlashNadeExploded += (sender, e) =>
@@ -203,6 +225,19 @@ namespace DemoCSGO.Core
 
             WriteJsonFile("players_stats", JsonConvert.SerializeObject(players, Formatting.Indented));
             DrawingPoints(shootingPositions, deathPositions);
+        }
+
+        private bool IsPlayerWalking(DemoInfo.Player jogador) => (jogador.Velocity.Absolute >= 75 && jogador.Velocity.Absolute <= 140);
+
+        private void SetClutches(List<Models.Player> players, RoundEndedEventArgs e)
+        {
+            foreach (var player in players)
+            {
+                if (player.IsLastAliveThisRound && player.TeamSide == Team.Terrorist && e.Reason == RoundEndReason.TerroristWin)
+                    player.Clutches++;
+                else if (player.IsLastAliveThisRound && player.TeamSide == Team.CounterTerrorist && e.Reason == RoundEndReason.CTWin)
+                    player.Clutches++;
+            }
         }
 
         private void UpdateTeamSide(List<Models.Player> players, IEnumerable<DemoInfo.Player> participants)
