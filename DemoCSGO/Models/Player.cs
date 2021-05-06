@@ -29,6 +29,8 @@ namespace DemoCSGO.Models
         public int Death { get; set; }
         [JsonIgnore]
         public bool IsAlive { get; set; } // Atributo auxiliar para saber se o jogador está vivo na rodada
+        [JsonIgnore]
+        public bool IsLastAliveThisRound { get; set; } // Atributo auxiliar para saber se o jogador é o último a ficar vivo da atual rodada
         public int LastAliveQuantity { get; set; } // Quantidade de vezes que foi o último a ficar vivo
         public int Clutches { get; set; } // Quantidade de vezes que o jogador foi o último a ficar vivo e ganhou a rodada
         public int FirstKills { get; set; } // Primeiro abate em uma rodada

@@ -44,19 +44,33 @@ namespace DemoCSGO.Core
             #region RoundStart Event
             _demo.RoundStart += (sender, e) => {
                 firstKillFlag = true;
-
                 roundCount++;
                 
                 if (IsAllPlayersRegistered(players))
                 {
                     lastAliveTR = false;
                     lastAliveCT = false;
+                    UpdateTeamSide(players, _demo.Participants);
 
                     foreach (var player in players)
+                    {
                         player.IsAlive = true;
+                        player.IsLastAliveThisRound = false;
+                    }
                 }
             };
             #endregion
+
+            _demo.RoundEnd += (sender, e) =>
+            {
+                foreach (var player in players)
+                {
+                    if (player.IsLastAliveThisRound && player.TeamSide == Team.Terrorist && e.Reason == RoundEndReason.TerroristWin)
+                        player.Clutches++;
+                    else if (player.IsLastAliveThisRound && player.TeamSide == Team.CounterTerrorist && e.Reason == RoundEndReason.CTWin)
+                        player.Clutches++;
+                }
+            };
 
             #region GetBlindedEnemies
             _demo.FlashNadeExploded += (sender, e) =>
@@ -191,6 +205,15 @@ namespace DemoCSGO.Core
             DrawingPoints(shootingPositions, deathPositions);
         }
 
+        private void UpdateTeamSide(List<Models.Player> players, IEnumerable<DemoInfo.Player> participants)
+        {
+            foreach (var player in players)
+            {
+                var jogador = participants.Where(p => p.Name == player.Name).First();
+                player.TeamSide = jogador.Team;
+            }
+        }
+
         private bool IsAllPlayersRegistered(List<Models.Player> players) => (players.Count == 10);
 
         private (bool, bool) SetLastAliveQuantity(List<Models.Player> players, bool lastAliveCT, bool lastAliveTR)
@@ -211,7 +234,10 @@ namespace DemoCSGO.Core
                 foreach (var player in players)
                 {
                     if (player.IsAlive && (player.TeamSide == Team.CounterTerrorist))
+                    {
                         player.LastAliveQuantity++;
+                        player.IsLastAliveThisRound = true;
+                    }
                 }
                 lastAliveCT = true;
             }
@@ -220,7 +246,10 @@ namespace DemoCSGO.Core
                 foreach (var player in players)
                 {
                     if (player.IsAlive && (player.TeamSide == Team.Terrorist))
+                    {
                         player.LastAliveQuantity++;
+                        player.IsLastAliveThisRound = true;
+                    }
                 }
                 lastAliveTR = true;
             }
