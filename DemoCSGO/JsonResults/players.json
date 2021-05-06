@@ -4,8 +4,10 @@
     "TeamName": "Natus Vincere",
     "Killed": 22,
     "Death": 17,
-    "FirstKills": 22,
-    "FirstDeaths": 16,
+    "LastAliveQuantity": 2,
+    "LastAliveWin": 0,
+    "FirstKills": 2,
+    "FirstDeaths": 1,
     "FlashedEnemies": 18,
     "Weapons": [
       {
@@ -75,8 +77,10 @@
     "TeamName": "Astralis",
     "Killed": 21,
     "Death": 21,
-    "FirstKills": 20,
-    "FirstDeaths": 20,
+    "LastAliveQuantity": 4,
+    "LastAliveWin": 0,
+    "FirstKills": 4,
+    "FirstDeaths": 3,
     "FlashedEnemies": 34,
     "Weapons": [
       {
@@ -152,8 +156,10 @@
     "TeamName": "Astralis",
     "Killed": 16,
     "Death": 17,
-    "FirstKills": 16,
-    "FirstDeaths": 16,
+    "LastAliveQuantity": 1,
+    "LastAliveWin": 0,
+    "FirstKills": 2,
+    "FirstDeaths": 4,
     "FlashedEnemies": 57,
     "Weapons": [
       {
@@ -217,8 +223,10 @@
     "TeamName": "Natus Vincere",
     "Killed": 13,
     "Death": 20,
-    "FirstKills": 12,
-    "FirstDeaths": 20,
+    "LastAliveQuantity": 3,
+    "LastAliveWin": 0,
+    "FirstKills": 1,
+    "FirstDeaths": 3,
     "FlashedEnemies": 21,
     "Weapons": [
       {
@@ -288,8 +296,10 @@
     "TeamName": "Astralis",
     "Killed": 11,
     "Death": 18,
-    "FirstKills": 11,
-    "FirstDeaths": 17,
+    "LastAliveQuantity": 3,
+    "LastAliveWin": 0,
+    "FirstKills": 5,
+    "FirstDeaths": 5,
     "FlashedEnemies": 50,
     "Weapons": [
       {
@@ -359,8 +369,10 @@
     "TeamName": "Natus Vincere",
     "Killed": 17,
     "Death": 20,
-    "FirstKills": 16,
-    "FirstDeaths": 20,
+    "LastAliveQuantity": 1,
+    "LastAliveWin": 0,
+    "FirstKills": 9,
+    "FirstDeaths": 8,
     "FlashedEnemies": 36,
     "Weapons": [
       {
@@ -424,8 +436,10 @@
     "TeamName": "Astralis",
     "Killed": 17,
     "Death": 20,
-    "FirstKills": 17,
-    "FirstDeaths": 19,
+    "LastAliveQuantity": 5,
+    "LastAliveWin": 0,
+    "FirstKills": 0,
+    "FirstDeaths": 1,
     "FlashedEnemies": 32,
     "Weapons": [
       {
@@ -489,8 +503,10 @@
     "TeamName": "Natus Vincere",
     "Killed": 15,
     "Death": 22,
-    "FirstKills": 14,
-    "FirstDeaths": 21,
+    "LastAliveQuantity": 1,
+    "LastAliveWin": 0,
+    "FirstKills": 3,
+    "FirstDeaths": 2,
     "FlashedEnemies": 38,
     "Weapons": [
       {
@@ -560,8 +576,10 @@
     "TeamName": "Astralis",
     "Killed": 29,
     "Death": 21,
-    "FirstKills": 28,
-    "FirstDeaths": 21,
+    "LastAliveQuantity": 2,
+    "LastAliveWin": 0,
+    "FirstKills": 2,
+    "FirstDeaths": 3,
     "FlashedEnemies": 50,
     "Weapons": [
       {
@@ -625,8 +643,10 @@
     "TeamName": "Natus Vincere",
     "Killed": 32,
     "Death": 17,
-    "FirstKills": 31,
-    "FirstDeaths": 17,
+    "LastAliveQuantity": 7,
+    "LastAliveWin": 0,
+    "FirstKills": 2,
+    "FirstDeaths": 0,
     "FlashedEnemies": 26,
     "Weapons": [
       {
