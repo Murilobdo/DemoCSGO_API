@@ -20,14 +20,18 @@ namespace DemoCSGO.Core
         public DemoParserCore()
         {
         }
-            
+
         private void OpenDemo() => _demo = new DemoParser(File.OpenRead("C:\\Users\\vitor\\Downloads\\BLAST-Pro-Series-Madrid-2019-astralis-vs-natus-vincere-dust2\\astralis-vs-natus-vincere-dust2.dem"));
 
         public void GenerateData()
         {
             List<Models.Player> players = new List<Models.Player>();
+            List<Models.Player> alivePlayers = new List<Models.Player>();
             List<Weapon> weapons = new List<Weapon>();
             bool firstKillFlag = true;
+            bool lastAliveTR = false;
+            bool lastAliveCT = false;
+            int roundCount = 0;
 
             OpenDemo();
             _demo.ParseHeader();
@@ -39,6 +43,26 @@ namespace DemoCSGO.Core
 
             _demo.RoundStart += (sender, e) => {
                 firstKillFlag = true;
+
+                roundCount++;
+                
+                if (IsAllPlayersRegistered(players))
+                {
+                    lastAliveTR = false;
+                    lastAliveCT = false;
+
+                    foreach (var player in players)
+                        player.IsAlive = true;
+                }
+            };
+
+            _demo.ExplosiveNadeExploded += (sender, e) => {
+
+            };
+
+            _demo.RoundEnd += (sender, e) => {
+                var participants = _demo.Participants;
+
             };
 
             #region GetBlindedEnemies
@@ -52,7 +76,7 @@ namespace DemoCSGO.Core
 
                         var player = players.Where(p => p.Name == e.ThrownBy.Name).FirstOrDefault();
                         player.FlashedEnemies += blindedEnemies;
-                        
+
                     }
                     else
                     {
@@ -73,9 +97,8 @@ namespace DemoCSGO.Core
                     {
                         bool foundWeapon = false;
                         var victim = players.Where(p => p.Name == e.Victim.Name).First();
+                        victim.IsAlive = false;
                         victim.Death++;
-
-                        SetPlayerTeamName(e.Victim, victim);
 
                         foreach (Weapon weapon in victim.Weapons)
                         {
@@ -96,6 +119,8 @@ namespace DemoCSGO.Core
                         players.Add(new Models.Player(e.Victim.Name, 0, 1, 0, new List<Weapon>()));
                         var victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
                         victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                        victim.TeamSide = e.Victim.Team;
+                        SetPlayerTeamName(e.Victim, victim);
                     }
 
                     //Assasino
@@ -105,7 +130,9 @@ namespace DemoCSGO.Core
                         var killer = players.Where(p => p.Name == e.Killer.Name).First();
                         killer.Killed++;
 
-                        SetPlayerTeamName(e.Killer, killer);
+                        if (IsAllPlayersRegistered(players))
+                            (lastAliveCT, lastAliveTR) = SetLastAliveQuantity(players, lastAliveCT, lastAliveTR);
+                        //lurkerFlag = SetLastAliveQuantity(players, lurkerFlag);
 
                         if (firstKillFlag)
                         {
@@ -114,7 +141,7 @@ namespace DemoCSGO.Core
                             victim.FirstDeaths++;
                             firstKillFlag = false;
                         }
-                        
+
                         foreach (Weapon weapon in killer.Weapons)
                         {
                             if (weapon.NameWeapon.Equals(nameWeaponFired))
@@ -123,7 +150,7 @@ namespace DemoCSGO.Core
                                 foundWeapon = true;
                             }
                         }
-                        
+
                         if (!foundWeapon)
                         {
                             killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
@@ -134,6 +161,8 @@ namespace DemoCSGO.Core
                         players.Add(new Models.Player(e.Killer.Name, 1, 0, 0, new List<Weapon>()));
                         var killer = players.Where(p => p.Name == e.Killer.Name).FirstOrDefault();
                         killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                        killer.TeamSide = e.Killer.Team;
+                        SetPlayerTeamName(e.Killer, killer);
                     }
                 }
             };
@@ -189,6 +218,43 @@ namespace DemoCSGO.Core
             DrawingPoints(shootingPositions, deathPositions);
         }
 
+        private bool IsAllPlayersRegistered(List<Models.Player> players) => (players.Count == 10);
+
+        private (bool, bool) SetLastAliveQuantity(List<Models.Player> players, bool lastAliveCT, bool lastAliveTR)
+        {
+            int aliveCT = 0;
+            int aliveTR = 0;
+
+            foreach (Models.Player player in players)
+            {
+                if (player.IsAlive && (player.TeamSide == Team.CounterTerrorist))
+                    aliveCT++;
+                else if (player.IsAlive && (player.TeamSide == Team.Terrorist))
+                    aliveTR++;
+            }
+
+            if (aliveCT == 1 && !lastAliveCT)
+            {
+                foreach (var player in players)
+                {
+                    if (player.IsAlive && (player.TeamSide == Team.CounterTerrorist))
+                        player.LastAliveQuantity++;
+                }
+                lastAliveCT = true;
+            }
+            if (aliveTR == 1 && !lastAliveTR)
+            {
+                foreach (var player in players)
+                {
+                    if (player.IsAlive && (player.TeamSide == Team.Terrorist))
+                        player.LastAliveQuantity++;
+                }
+                lastAliveTR = true;
+            }
+
+            return (lastAliveCT, lastAliveTR);
+        }
+
         private void SetPlayerTeamName(DemoInfo.Player player, Models.Player victim)
         {
             if (player.Team == Team.Terrorist)
@@ -197,7 +263,7 @@ namespace DemoCSGO.Core
                 victim.TeamName = _demo.CTClanName;
         }
 
-        public int BlindedEnemies(DemoInfo.Player[] players, DemoInfo.Player playerThrownBy)
+        private int BlindedEnemies(DemoInfo.Player[] players, DemoInfo.Player playerThrownBy)
         {
             int blindedEnemies = 0;
 
