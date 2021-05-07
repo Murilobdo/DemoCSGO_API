@@ -19,6 +19,7 @@ namespace DemoCSGO.Controllers
     public class DemoController : ControllerBase
     {
         private readonly string path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
+        private string[] filePaths = Directory.GetFiles("C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\Jupyter_Notebook\\partidas");
 
         [HttpPost]
         [Route("LoadData")]
@@ -30,7 +31,10 @@ namespace DemoCSGO.Controllers
             {
                 cronometro.Start();
 
-                _core.GenerateData();
+                foreach (var file in filePaths)
+                {
+                    _core.GenerateData(file);
+                }
 
                 cronometro.Stop();
                 return Ok("Dados carregados em " + cronometro.ElapsedMilliseconds / 1000 + "s");
@@ -45,7 +49,7 @@ namespace DemoCSGO.Controllers
         [Route("GetPlayers")]
         public async Task<ActionResult> GetPlayers()
         {
-            return Ok(System.IO.File.OpenRead(Path.Combine(path, "players_stats.json")));
+            return Ok(System.IO.File.OpenRead(Path.Combine(path, "AllPlayersStats.json")));
         }
 
         [HttpGet]

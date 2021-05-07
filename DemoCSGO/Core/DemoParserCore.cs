@@ -21,9 +21,10 @@ namespace DemoCSGO.Core
         {
         }
 
-        private void OpenDemo() => _demo = new DemoParser(File.OpenRead("C:\\Users\\vitor\\Downloads\\BLAST-Pro-Series-Madrid-2019-astralis-vs-natus-vincere-dust2\\astralis-vs-natus-vincere-dust2.dem"));
+        //private void OpenDemo() => _demo = new DemoParser(File.OpenRead("C:\\Users\\vitor\\Downloads\\BLAST-Pro-Series-Madrid-2019-astralis-vs-natus-vincere-dust2\\astralis-vs-natus-vincere-dust2.dem"));
+        private void OpenDemo(string file) => _demo = new DemoParser(File.OpenRead(file));        
 
-        public void GenerateData()
+        public void GenerateData(string file)
         {
             List<Models.Player> players = new List<Models.Player>();
             List<Models.Player> alivePlayers = new List<Models.Player>();
@@ -34,7 +35,7 @@ namespace DemoCSGO.Core
             bool roundStarted = false;
             int roundCount = 0;
 
-            OpenDemo();
+            OpenDemo(file);
             _demo.ParseHeader();
             bool hasMatchStarted = false;
 
@@ -122,75 +123,96 @@ namespace DemoCSGO.Core
                     string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
 
                     //Vitima
-                    if (players.Any(p => p.Name == e.Victim.Name))
+                    if (e.Victim != null)
                     {
-                        bool foundWeapon = false;
-                        var victim = players.Where(p => p.Name == e.Victim.Name).First();
-                        victim.IsAlive = false;
-                        victim.Death++;
-
-                        foreach (Weapon weapon in victim.Weapons)
+                        if (players.Any(p => p.Name == e.Victim.Name))
                         {
-                            if (weapon.NameWeapon.Equals(nameWeaponFired))
+                            bool foundWeapon = false;
+                            var victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
+                            if (victim != null)
                             {
-                                weapon.DeathQuantity++;
-                                foundWeapon = true;
+                                victim.IsAlive = false;
+                                victim.Death++;
+                            }
+
+                            foreach (Weapon weapon in victim.Weapons)
+                            {
+                                if (weapon.NameWeapon.Equals(nameWeaponFired))
+                                {
+                                    weapon.DeathQuantity++;
+                                    foundWeapon = true;
+                                }
+                            }
+
+                            if (!foundWeapon)
+                            {
+                                victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                             }
                         }
-
-                        if (!foundWeapon)
+                        else
                         {
-                            victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                            players.Add(new Models.Player(e.Victim.Name, 0, 1, 0, new List<Weapon>()));
+                            var victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
+
+                            if (victim != null)
+                            {
+                                victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                                victim.TeamSide = e.Victim.Team;
+                                SetPlayerTeamName(e.Victim, victim);
+                            }
                         }
-                    }
-                    else
-                    {
-                        players.Add(new Models.Player(e.Victim.Name, 0, 1, 0, new List<Weapon>()));
-                        var victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
-                        victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
-                        victim.TeamSide = e.Victim.Team;
-                        SetPlayerTeamName(e.Victim, victim);
                     }
 
                     //Assasino
-                    if (players.Any(p => p.Name == e.Killer.Name))
+                    if (e.Killer != null)
                     {
-                        bool foundWeapon = false;
-                        var killer = players.Where(p => p.Name == e.Killer.Name).First();
-                        killer.Killed++;
-
-                        if (IsAllPlayersRegistered(players))
-                            (lastAliveCT, lastAliveTR) = SetLastAliveQuantity(players, lastAliveCT, lastAliveTR);
-
-                        if (firstKillFlag)
+                        if (players.Any(p => p.Name == e.Killer.Name))
                         {
-                            killer.FirstKills++;
-                            var victim = players.Where(p => p.Name == e.Victim.Name).First();
-                            victim.FirstDeaths++;
-                            firstKillFlag = false;
-                        }
+                            bool foundWeapon = false;
+                            var killer = players.Where(p => p.Name == e.Killer.Name).FirstOrDefault();
+                            if (killer != null)
+                                killer.Killed++;
 
-                        foreach (Weapon weapon in killer.Weapons)
-                        {
-                            if (weapon.NameWeapon.Equals(nameWeaponFired))
+                            if (IsAllPlayersRegistered(players))
+                                (lastAliveCT, lastAliveTR) = SetLastAliveQuantity(players, lastAliveCT, lastAliveTR);
+
+                            if (firstKillFlag)
                             {
-                                weapon.KillQuantity++;
-                                foundWeapon = true;
+                                killer.FirstKills++;
+                                var victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
+
+                                if (victim != null)
+                                    victim.FirstDeaths++;
+
+                                firstKillFlag = false;
+                            }
+
+                            foreach (Weapon weapon in killer.Weapons)
+                            {
+                                if (weapon.NameWeapon.Equals(nameWeaponFired))
+                                {
+                                    weapon.KillQuantity++;
+                                    foundWeapon = true;
+                                }
+                            }
+
+                            if (!foundWeapon)
+                            {
+                                killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                             }
                         }
-
-                        if (!foundWeapon)
+                        else
                         {
-                            killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                            players.Add(new Models.Player(e.Killer.Name, 1, 0, 0, new List<Weapon>()));
+                            var killer = players.Where(p => p.Name == e.Killer.Name).FirstOrDefault();
+
+                            if (killer != null)
+                            {
+                                killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+                                killer.TeamSide = e.Killer.Team;
+                                SetPlayerTeamName(e.Killer, killer);
+                            }
                         }
-                    }
-                    else
-                    {
-                        players.Add(new Models.Player(e.Killer.Name, 1, 0, 0, new List<Weapon>()));
-                        var killer = players.Where(p => p.Name == e.Killer.Name).FirstOrDefault();
-                        killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
-                        killer.TeamSide = e.Killer.Team;
-                        SetPlayerTeamName(e.Killer, killer);
                     }
                 }
             };
@@ -203,28 +225,77 @@ namespace DemoCSGO.Core
             List<Vector2> deathPositions = new List<Vector2>();
 
             _demo.PlayerKilled += (sender, e) => {
-                if (e.Victim.Name.Contains(nomeJogador) && hasMatchStarted)
+                if (e.Victim != null)
                 {
-                    Vector2 vet = TrasnlateScale(e.Victim.LastAlivePosition.X, e.Victim.LastAlivePosition.Y);
-                    deathPositions.Add(vet);
+                    if (e.Victim.Name.Contains(nomeJogador) && hasMatchStarted)
+                    {
+                        Vector2 vet = TrasnlateScale(e.Victim.LastAlivePosition.X, e.Victim.LastAlivePosition.Y);
+                        deathPositions.Add(vet);
+                    }
                 }
             };
             _demo.WeaponFired += (sender, e) => {
-                if (e.Shooter.Name.Contains(nomeJogador) && hasMatchStarted
-                   && e.Weapon.Weapon != EquipmentElement.Knife && e.Weapon.Weapon != EquipmentElement.Molotov
-                   && e.Weapon.Weapon != EquipmentElement.Smoke && e.Weapon.Weapon != EquipmentElement.Flash
-                   && e.Weapon.Weapon != EquipmentElement.Decoy && e.Weapon.Weapon != EquipmentElement.HE)
+                if (e.Shooter != null)
                 {
-                    Vector2 vet = TrasnlateScale(e.Shooter.Position.X, e.Shooter.Position.Y);
-                    shootingPositions.Add(vet);
+                    if (e.Shooter.Name.Contains(nomeJogador) && hasMatchStarted
+                       && e.Weapon.Weapon != EquipmentElement.Knife && e.Weapon.Weapon != EquipmentElement.Molotov
+                       && e.Weapon.Weapon != EquipmentElement.Smoke && e.Weapon.Weapon != EquipmentElement.Flash
+                       && e.Weapon.Weapon != EquipmentElement.Decoy && e.Weapon.Weapon != EquipmentElement.HE)
+                    {
+                        Vector2 vet = TrasnlateScale(e.Shooter.Position.X, e.Shooter.Position.Y);
+                        shootingPositions.Add(vet);
+                    }
                 }
             };
             #endregion
 
             _demo.ParseToEnd();
 
-            WriteJsonFile("players_stats", JsonConvert.SerializeObject(players, Formatting.Indented));
+            //SetRoles(players);
+            WriteJsonPlayers(players);
             DrawingPoints(shootingPositions, deathPositions);
+            players.Clear();
+        }
+
+        private void WriteJsonPlayers(List<Models.Player> players)
+        {
+            string jsonResultPath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
+            if (!IsJsonAlreadyCreated(jsonResultPath))
+            {
+                WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players, Formatting.Indented));
+            }
+            else
+            {
+                string playersJson = JsonConvert.SerializeObject(players, Formatting.Indented);
+                string allPlayersStatsJson = string.Empty;
+                using (StreamReader r = new StreamReader(jsonResultPath + "AllPlayersStats.json"))
+                {
+                    allPlayersStatsJson = r.ReadToEnd();
+                    allPlayersStatsJson += playersJson;
+
+                    r.Close();
+                }
+                File.Delete(jsonResultPath + "AllPlayersStats.json");
+                WriteJsonFile("AllPlayersStats", allPlayersStatsJson);
+            }
+        }
+
+        private bool IsJsonAlreadyCreated(string jsonResultPath)
+        {
+            string[] jsons = Directory.GetFiles(jsonResultPath);
+
+            foreach (var json in jsons)
+            {
+                if (json.Equals(jsonResultPath + "AllPlayersStats.json"))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private void SetRoles(List<Models.Player> players)
+        {
+            throw new NotImplementedException();
         }
 
         private bool IsPlayerWalking(DemoInfo.Player jogador) => (jogador.Velocity.Absolute >= 75 && jogador.Velocity.Absolute <= 140);
@@ -244,8 +315,10 @@ namespace DemoCSGO.Core
         {
             foreach (var player in players)
             {
-                var jogador = participants.Where(p => p.Name == player.Name).First();
-                player.TeamSide = jogador.Team;
+                var jogador = participants.Where(p => p.Name == player.Name).FirstOrDefault();
+
+                if (jogador != null)
+                    player.TeamSide = jogador.Team;
             }
         }
 
@@ -316,70 +389,70 @@ namespace DemoCSGO.Core
             return blindedEnemies;
         }
 
-        public void GeneratePlayers()
-        {
-            List<Models.Player> result = new List<Models.Player>();
-            OpenDemo();
-            _demo.ParseHeader();
-            bool hasMatchStarted = false;
-            _demo.MatchStarted += (sender, e) => {
-                hasMatchStarted = true;
-            };
+        //public void GeneratePlayers()
+        //{
+        //    List<Models.Player> result = new List<Models.Player>();
+        //    OpenDemo();
+        //    _demo.ParseHeader();
+        //    bool hasMatchStarted = false;
+        //    _demo.MatchStarted += (sender, e) => {
+        //        hasMatchStarted = true;
+        //    };
 
 
-            _demo.PlayerKilled += (sender, e) => {
-                if(hasMatchStarted){
-                    //Vitima
-                    if(result.Any(p => p.Name == e.Victim.Name)){
-                        var victim = result.Where(p => p.Name == e.Victim.Name).First();
-                        victim.Death++;
-                    }else{
-                        result.Add(new Models.Player(e.Victim.Name, 0, 1));
-                    }
+        //    _demo.PlayerKilled += (sender, e) => {
+        //        if(hasMatchStarted){
+        //            //Vitima
+        //            if(result.Any(p => p.Name == e.Victim.Name)){
+        //                var victim = result.Where(p => p.Name == e.Victim.Name).First();
+        //                victim.Death++;
+        //            }else{
+        //                result.Add(new Models.Player(e.Victim.Name, 0, 1));
+        //            }
 
-                    //Assasino
-                    if(result.Any(p => p.Name == e.Killer.Name)){
-                        var Killer = result.Where(p => p.Name == e.Killer.Name).First();
-                        Killer.Killed++;
-                    }else{
-                        result.Add(new Models.Player(e.Killer.Name, 1, 0));
-                    }
-                }
-            };
-            _demo.ParseToEnd();
+        //            //Assasino
+        //            if(result.Any(p => p.Name == e.Killer.Name)){
+        //                var Killer = result.Where(p => p.Name == e.Killer.Name).First();
+        //                Killer.Killed++;
+        //            }else{
+        //                result.Add(new Models.Player(e.Killer.Name, 1, 0));
+        //            }
+        //        }
+        //    };
+        //    _demo.ParseToEnd();
 
-            WriteJsonFile("players", JsonConvert.SerializeObject(result));
+        //    WriteJsonFile("players", JsonConvert.SerializeObject(result));
 
-        }
+        //}
 
-        public void GenerateWeapons()
-        {
-            List<Weapon> result = new List<Weapon>();
+        //public void GenerateWeapons()
+        //{
+        //    List<Weapon> result = new List<Weapon>();
 
-            OpenDemo();
-            _demo.ParseHeader();
-            bool hasMatchStarted = false;
+        //    OpenDemo();
+        //    _demo.ParseHeader();
+        //    bool hasMatchStarted = false;
 
-            _demo.MatchStarted += (sender, e) => {
-                hasMatchStarted = true;
-            };
+        //    _demo.MatchStarted += (sender, e) => {
+        //        hasMatchStarted = true;
+        //    };
 
-            _demo.PlayerKilled  += (sender, e) => {
-                if(hasMatchStarted){
-                    string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
-                    if(result.Any(p => p.NameWeapon == nameWeaponFired)){
-                        var weapon = result.Where(p => p.NameWeapon == nameWeaponFired).FirstOrDefault();
-                        weapon.KillQuantity++;
-                    }
-                    else{
-                        result.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
-                    }
-                }
-            };
-            _demo.ParseToEnd();
+        //    _demo.PlayerKilled  += (sender, e) => {
+        //        if(hasMatchStarted){
+        //            string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
+        //            if(result.Any(p => p.NameWeapon == nameWeaponFired)){
+        //                var weapon = result.Where(p => p.NameWeapon == nameWeaponFired).FirstOrDefault();
+        //                weapon.KillQuantity++;
+        //            }
+        //            else{
+        //                result.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
+        //            }
+        //        }
+        //    };
+        //    _demo.ParseToEnd();
 
-            WriteJsonFile("weapons", JsonConvert.SerializeObject(result));
-        }
+        //    WriteJsonFile("weapons", JsonConvert.SerializeObject(result));
+        //}
 
         public void GetWeapons(DemoParser demo)
         {
@@ -391,41 +464,41 @@ namespace DemoCSGO.Core
             _demo = new DemoParser(file);
         }
 
-        public void GenerateHeatMap()
-        {
-            string name = "dupreeh";
-            mapDust2 = MakeMap("de_dust2", -2476, 3239, 4.4f);
-            OpenDemo();
-            _demo.ParseHeader();
+        //public void GenerateHeatMap()
+        //{
+        //    string name = "dupreeh";
+        //    mapDust2 = MakeMap("de_dust2", -2476, 3239, 4.4f);
+        //    OpenDemo();
+        //    _demo.ParseHeader();
 
-            List<Vector2> shootingPositions = new List<Vector2>();
-            List<Vector2> deathPositions = new List<Vector2>();
-            bool hasMatchStarted = false;
+        //    List<Vector2> shootingPositions = new List<Vector2>();
+        //    List<Vector2> deathPositions = new List<Vector2>();
+        //    bool hasMatchStarted = false;
 
-            _demo.MatchStarted += (sender, e) => {
-                hasMatchStarted = true;
-            };
+        //    _demo.MatchStarted += (sender, e) => {
+        //        hasMatchStarted = true;
+        //    };
 
-            _demo.PlayerKilled += (sender, e) => {
-                if (e.Victim.Name.Contains(name) && hasMatchStarted){
-                    Vector2 vet = TrasnlateScale(e.Victim.LastAlivePosition.X, e.Victim.LastAlivePosition.Y);
-                    deathPositions.Add(vet);
-                }
-            };
-            _demo.WeaponFired += (sender, e) => {
-                if (e.Shooter.Name.Contains(name) && hasMatchStarted 
-                   && e.Weapon.Weapon != EquipmentElement.Knife && e.Weapon.Weapon != EquipmentElement.Molotov
-                   && e.Weapon.Weapon != EquipmentElement.Smoke && e.Weapon.Weapon != EquipmentElement.Flash
-                   && e.Weapon.Weapon != EquipmentElement.Decoy && e.Weapon.Weapon != EquipmentElement.HE){
-                    Vector2 vet = TrasnlateScale(e.Shooter.Position.X, e.Shooter.Position.Y);
-                    shootingPositions.Add(vet);
-                }
-            };
+        //    _demo.PlayerKilled += (sender, e) => {
+        //        if (e.Victim.Name.Contains(name) && hasMatchStarted){
+        //            Vector2 vet = TrasnlateScale(e.Victim.LastAlivePosition.X, e.Victim.LastAlivePosition.Y);
+        //            deathPositions.Add(vet);
+        //        }
+        //    };
+        //    _demo.WeaponFired += (sender, e) => {
+        //        if (e.Shooter.Name.Contains(name) && hasMatchStarted 
+        //           && e.Weapon.Weapon != EquipmentElement.Knife && e.Weapon.Weapon != EquipmentElement.Molotov
+        //           && e.Weapon.Weapon != EquipmentElement.Smoke && e.Weapon.Weapon != EquipmentElement.Flash
+        //           && e.Weapon.Weapon != EquipmentElement.Decoy && e.Weapon.Weapon != EquipmentElement.HE){
+        //            Vector2 vet = TrasnlateScale(e.Shooter.Position.X, e.Shooter.Position.Y);
+        //            shootingPositions.Add(vet);
+        //        }
+        //    };
 
-            _demo.ParseToEnd();
+        //    _demo.ParseToEnd();
 
-            DrawingPoints(shootingPositions, deathPositions);
-        }
+        //    DrawingPoints(shootingPositions, deathPositions);
+        //}
         private void DrawingPoints(List<Vector2> shootingPositions, List<Vector2> deathPositions)
         {
             
@@ -476,5 +549,19 @@ namespace DemoCSGO.Core
             return Color.FromArgb(255,r,g,b);                                    
         }
 
+        public void GenerateWeapons()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GenerateHeatMap()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GeneratePlayers()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
