@@ -30,7 +30,8 @@ namespace DemoCSGO.Models
         public int FirstKills { get; set; } // Primeiro abate em uma rodada
         public int FirstDeaths { get; set; } // Sofreu a primeira morte durante a rodada
         public int FlashedEnemies { get; set; } // Inimigos que o jogador atingiu com a granada Flash
-        public int WalkQuantity { get; set; } // Quantidade de vezes que o jogador andou sem fazer barulho (Walk) 
+        public int WalkQuantityAsTR { get; set; } // Quantidade de vezes que o jogador andou sem fazer barulho (Walk) de Terrorista
+        public int WalkQuantityAsCT { get; set; } // Quantidade de vezes que o jogador andou sem fazer barulho (Walk) de Contra-Terrorista
         public double DistanceTraveledAsTR { get; set; } // Distancia total percorrida do jogador no jogo de Terrorista
         public double DistanceTraveledAsCT { get; set; } // Distancia total percorrida do jogador no jogo de Contra-Terrorista
         public List<Weapon> Weapons { get; set; }

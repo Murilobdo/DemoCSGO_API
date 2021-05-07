@@ -43,7 +43,7 @@ namespace DemoCSGO.Core
                 hasMatchStarted = true;
             };
 
-            #region SetDistanceTraveled and WalkQuantity
+            #region SetDistanceTraveled and WalkQuantityAsTR
             _demo.TickDone += (sender, e) => { 
                 if (hasMatchStarted && IsAllPlayersRegistered(players) && roundStarted && _demo.Participants != null)
                 {
@@ -64,7 +64,12 @@ namespace DemoCSGO.Core
                             }
 
                             if (IsPlayerWalking(jogador))
-                                player.WalkQuantity++;
+                            {
+                                if (player.TeamSide == Team.Terrorist)
+                                    player.WalkQuantityAsTR++;
+                                else
+                                    player.WalkQuantityAsCT++;
+                            }
                         }
                     }
                 }
