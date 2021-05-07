@@ -19,21 +19,22 @@ namespace DemoCSGO.Controllers
     public class DemoController : ControllerBase
     {
         private readonly string path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
-        private string[] filePaths = Directory.GetFiles("C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\Jupyter_Notebook\\partidas");
+        private readonly string[] demos = Directory.GetFiles("C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\Jupyter_Notebook\\partidas");
 
         [HttpPost]
         [Route("LoadData")]
         public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
         {
             var cronometro = new Stopwatch();
+            System.IO.File.Delete(@"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\AllPlayersStats.json");
 
             try
             {
                 cronometro.Start();
 
-                foreach (var file in filePaths)
+                foreach (string demo in demos)
                 {
-                    _core.GenerateData(file);
+                    _core.GenerateData(demo);
                 }
 
                 cronometro.Stop();

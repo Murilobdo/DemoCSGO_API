@@ -31,7 +31,8 @@ namespace DemoCSGO.Models
         public int FirstDeaths { get; set; } // Sofreu a primeira morte durante a rodada
         public int FlashedEnemies { get; set; } // Inimigos que o jogador atingiu com a granada Flash
         public int WalkQuantity { get; set; } // Quantidade de vezes que o jogador andou sem fazer barulho (Walk) 
-        public double DistanceTraveled { get; set; } // Distancia total percorrida do jogador no jogo
+        public double DistanceTraveledAsTR { get; set; } // Distancia total percorrida do jogador no jogo de Terrorista
+        public double DistanceTraveledAsCT { get; set; } // Distancia total percorrida do jogador no jogo de Contra-Terrorista
         public List<Weapon> Weapons { get; set; }
         [JsonIgnore]
         public DemoInfo.Team TeamSide { get; set; } // Atributo auxiliar para saber em qual lado o jogador está jogando no momento (Terrorista ou Contra-Terrorista)

@@ -24,7 +24,7 @@ namespace DemoCSGO.Core
         //private void OpenDemo() => _demo = new DemoParser(File.OpenRead("C:\\Users\\vitor\\Downloads\\BLAST-Pro-Series-Madrid-2019-astralis-vs-natus-vincere-dust2\\astralis-vs-natus-vincere-dust2.dem"));
         private void OpenDemo(string file) => _demo = new DemoParser(File.OpenRead(file));        
 
-        public void GenerateData(string file)
+        public void GenerateData(string demo)
         {
             List<Models.Player> players = new List<Models.Player>();
             List<Models.Player> alivePlayers = new List<Models.Player>();
@@ -35,7 +35,7 @@ namespace DemoCSGO.Core
             bool roundStarted = false;
             int roundCount = 0;
 
-            OpenDemo(file);
+            OpenDemo(demo);
             _demo.ParseHeader();
             bool hasMatchStarted = false;
 
@@ -52,8 +52,16 @@ namespace DemoCSGO.Core
                         var jogador = _demo.Participants.Where(p => p.Name == player.Name).FirstOrDefault();
                         if (jogador != null)
                         {
-                            player.DistanceTraveled += (jogador.Velocity.Absolute * _demo.TickTime);
-                            player.DistanceTraveled = Math.Round(player.DistanceTraveled, 2);
+                            if (player.TeamSide == Team.Terrorist)
+                            {
+                                player.DistanceTraveledAsTR += (jogador.Velocity.Absolute * _demo.TickTime);
+                                player.DistanceTraveledAsTR = Math.Round(player.DistanceTraveledAsTR, 2);
+                            }
+                            else
+                            {
+                                player.DistanceTraveledAsCT += (jogador.Velocity.Absolute * _demo.TickTime);
+                                player.DistanceTraveledAsCT = Math.Round(player.DistanceTraveledAsCT, 2);
+                            }
 
                             if (IsPlayerWalking(jogador))
                                 player.WalkQuantity++;
@@ -69,8 +77,6 @@ namespace DemoCSGO.Core
                 roundStarted = true;
                 roundCount++;
 
-                var test = _demo.Participants;
-                
                 if (IsAllPlayersRegistered(players))
                 {
                     lastAliveTR = false;
