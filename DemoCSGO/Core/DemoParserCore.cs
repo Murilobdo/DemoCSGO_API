@@ -291,18 +291,7 @@ namespace DemoCSGO.Core
             }
         }
 
-        private bool IsJsonAlreadyCreated(string jsonResultPath)
-        {
-            string[] jsons = Directory.GetFiles(jsonResultPath);
-
-            foreach (var json in jsons)
-            {
-                if (json.Equals(jsonResultPath + "AllPlayersStats.json"))
-                    return true;
-            }
-
-            return false;
-        }
+        private bool IsJsonAlreadyCreated(string jsonResultPath) => File.Exists(jsonResultPath + "AllPlayersStats.json");
 
         private void SetRoles(List<Models.Player> players)
         {

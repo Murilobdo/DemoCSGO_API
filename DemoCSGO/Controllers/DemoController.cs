@@ -26,7 +26,10 @@ namespace DemoCSGO.Controllers
         public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
         {
             var cronometro = new Stopwatch();
-            System.IO.File.Delete(@"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\AllPlayersStats.json");
+            string jsonFilePath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\AllPlayersStats.json";
+            
+            if (System.IO.File.Exists(jsonFilePath))
+                System.IO.File.Delete(jsonFilePath);
 
             try
             {
