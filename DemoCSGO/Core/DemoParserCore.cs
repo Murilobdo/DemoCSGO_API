@@ -192,8 +192,11 @@ namespace DemoCSGO.Core
 
                             if (firstKillFlag)
                             {
+                                Models.Player victim = null;
                                 killer.FirstKills++;
-                                var victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
+
+                                if (e.Victim != null)
+                                    victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
 
                                 if (victim != null)
                                     victim.FirstDeaths++;
@@ -340,6 +343,10 @@ namespace DemoCSGO.Core
         private void WriteJsonPlayers(List<Models.Player> players)
         {
             string jsonResultPath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
+<<<<<<< Updated upstream
+=======
+            //string jsonResultPath = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
+>>>>>>> Stashed changes
             if (!IsJsonAlreadyCreated(jsonResultPath))
             {
                 WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players, Formatting.Indented));
