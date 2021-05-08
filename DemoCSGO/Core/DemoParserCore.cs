@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 using System.Numerics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using CsvHelper;
+using System.Globalization;
+using CsvHelper.Configuration;
 
 namespace DemoCSGO.Core
 {
@@ -263,9 +266,75 @@ namespace DemoCSGO.Core
             _demo.ParseToEnd();
 
             //SetRoles(players);
-            WriteJsonPlayers(players);
+            //WriteWeaponsCsv(players);
+            WriteCsvFile(players); // Não está cadastrando as armas de cada jogador
+            WriteJsonPlayers(players); // Funcionando
             DrawingPoints(shootingPositions, deathPositions);
             players.Clear();
+        }
+
+        private void WriteWeaponsCsv(List<Models.Player> players)
+        {
+            string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\AllWeaponsStats.csv";
+            List<Weapon> weapons = new();
+
+            foreach (var player in players)
+            {
+                foreach (var weapon in player.Weapons)
+                {
+                    weapons.Add(new Weapon(weapon.NameWeapon, weapon.KillQuantity, weapon.DeathQuantity, weapon.WeaponType));
+                }
+            }
+
+            if (!File.Exists(path))
+            {
+                using (var writer = new StreamWriter(path))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteHeader<Weapon>();
+
+                    foreach (var weapon in weapons)
+                    {
+                        csv.WriteRecord<Weapon>(weapon);
+                    }
+                }
+            }
+            else
+            {
+                //var config = new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false };
+
+                using (var stream = File.Open(path, FileMode.Append))
+                using (var writer = new StreamWriter(stream))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(weapons);
+                }
+            }
+        }
+
+        private void WriteCsvFile(List<Models.Player> players)
+        {
+            string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\AllPlayersStats.csv";
+
+            if (!File.Exists(path))
+            {
+                using (var writer = new StreamWriter(path))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(players);
+                }
+            }
+            else
+            {
+                var config = new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = false };
+
+                using (var stream = File.Open(path, FileMode.Append))
+                using (var writer = new StreamWriter(stream))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(players);
+                }
+            }
         }
 
         private void WriteJsonPlayers(List<Models.Player> players)
@@ -284,6 +353,17 @@ namespace DemoCSGO.Core
                     allPlayersStatsJson = r.ReadToEnd();
                     allPlayersStatsJson += playersJson;
 
+                    int index = allPlayersStatsJson.IndexOf("][");
+                    if (index > 0)
+                    {
+                        allPlayersStatsJson = allPlayersStatsJson.Insert(index - 2, ",");
+                        index = allPlayersStatsJson.IndexOf("][");
+
+                        var index1 = allPlayersStatsJson[index];
+                        var index2 = allPlayersStatsJson[index + 1];
+
+                        allPlayersStatsJson = allPlayersStatsJson.Replace("][", string.Empty);
+                    }
                     r.Close();
                 }
                 File.Delete(jsonResultPath + "AllPlayersStats.json");

@@ -26,10 +26,9 @@ namespace DemoCSGO.Controllers
         public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
         {
             var cronometro = new Stopwatch();
-            string jsonFilePath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\AllPlayersStats.json";
-            
-            if (System.IO.File.Exists(jsonFilePath))
-                System.IO.File.Delete(jsonFilePath);
+            string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
+
+            CheckAndRemoveExistingFiles(path);
 
             try
             {
@@ -47,6 +46,18 @@ namespace DemoCSGO.Controllers
             {
                 return BadRequest(new {ModelState = ModelState, Message = ex.Message});
             }
+        }
+
+        private void CheckAndRemoveExistingFiles(string path)
+        {
+            if (System.IO.File.Exists(path + "AllPlayersStats.json"))
+                System.IO.File.Delete(path + "AllPlayersStats.json");
+
+            if (System.IO.File.Exists(path + "AllPlayersStats.csv"))
+                System.IO.File.Delete(path + "AllPlayersStats.csv");
+
+            if (System.IO.File.Exists(path + "AllWeaponsStats.csv"))
+                System.IO.File.Delete(path + "AllWeaponsStats.csv");
         }
 
         [HttpGet]

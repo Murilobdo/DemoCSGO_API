@@ -1,3 +1,4 @@
+using CsvHelper.Configuration;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -48,6 +49,18 @@ namespace DemoCSGO.Models
             Lurker,
             Fragger,
             Leader
+        }
+    }
+
+    public class PlayerMap : ClassMap<Player>
+    {
+        public PlayerMap()
+        {
+            Map(p => p.Name);
+            Map(p => p.TeamName);
+            Map(p => p.Killed);
+            Map(p => p.Death);
+            Map(p => p.Weapons).Index(5);
         }
     }
 }
