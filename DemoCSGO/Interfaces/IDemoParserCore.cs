@@ -12,6 +12,6 @@ namespace DemoCSGO.Core
         void LoadDemo(FileStream demo);
         void GeneratePlayers();
         void GenerateHeatMap();
-        void GenerateData();
+        void GenerateData(string file);
     }
 }
