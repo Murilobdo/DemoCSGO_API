@@ -267,7 +267,7 @@ namespace DemoCSGO.Core
 
             //SetRoles(players);
             //WriteWeaponsCsv(players);
-            WriteCsvFile(players); // Não está cadastrando as armas de cada jogador
+            //WriteCsvFile(players); // Nï¿½o estï¿½ cadastrando as armas de cada jogador
             WriteJsonPlayers(players); // Funcionando
             DrawingPoints(shootingPositions, deathPositions);
             players.Clear();
@@ -339,7 +339,8 @@ namespace DemoCSGO.Core
 
         private void WriteJsonPlayers(List<Models.Player> players)
         {
-            string jsonResultPath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
+            // string jsonResultPath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
+            string jsonResultPath = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
             if (!IsJsonAlreadyCreated(jsonResultPath))
             {
                 WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players, Formatting.Indented));
