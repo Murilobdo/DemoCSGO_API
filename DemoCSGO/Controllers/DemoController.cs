@@ -19,12 +19,8 @@ namespace DemoCSGO.Controllers
     public class DemoController : ControllerBase
     {
         private readonly string path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
-<<<<<<< Updated upstream
-        private readonly string[] demos = Directory.GetFiles("C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\Jupyter_Notebook\\partidas");
-=======
         private readonly string[] demos = Directory.GetFiles(@"V:\Users\vitor\DemoCSGO_API\Jupyter_Notebook\partidas");
         //private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas");
->>>>>>> Stashed changes
 
         [HttpPost]
         [Route("LoadData")]
@@ -32,10 +28,7 @@ namespace DemoCSGO.Controllers
         {
             var cronometro = new Stopwatch();
             string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
-<<<<<<< Updated upstream
-=======
             //string path = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
->>>>>>> Stashed changes
 
             CheckAndRemoveExistingFiles(path);
 
