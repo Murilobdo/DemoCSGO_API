@@ -19,16 +19,33 @@ namespace DemoCSGO.Controllers
     public class DemoController : ControllerBase
     {
         private readonly string path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+        private readonly string[] demos = Directory.GetFiles("C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\Jupyter_Notebook\\partidas");
+=======
+        private readonly string[] demos = Directory.GetFiles(@"V:\Users\vitor\DemoCSGO_API\Jupyter_Notebook\partidas");
+        //private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas");
+>>>>>>> Stashed changes
+=======
         // private readonly string[] demos = Directory.GetFiles("C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\Jupyter_Notebook\\partidas");
         private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas");
+>>>>>>> master
 
         [HttpPost]
         [Route("LoadData")]
         public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
         {
             var cronometro = new Stopwatch();
+<<<<<<< HEAD
+            string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
+<<<<<<< Updated upstream
+=======
+            //string path = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
+>>>>>>> Stashed changes
+=======
             // string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
             string path = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
+>>>>>>> master
 
             CheckAndRemoveExistingFiles(path);
 
@@ -52,8 +69,8 @@ namespace DemoCSGO.Controllers
 
         private void CheckAndRemoveExistingFiles(string path)
         {
-            if (System.IO.File.Exists(path + "AllPlayersStats.json"))
-                System.IO.File.Delete(path + "AllPlayersStats.json");
+            //if (System.IO.File.Exists(path + "AllPlayersStats.json"))
+            //    System.IO.File.Delete(path + "AllPlayersStats.json");
 
             // if (System.IO.File.Exists(path + "AllPlayersStats.csv"))
             //     System.IO.File.Delete(path + "AllPlayersStats.csv");
