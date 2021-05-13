@@ -46,6 +46,40 @@ namespace DemoCSGO.Core
                 hasMatchStarted = true;
             };
 
+            _demo.RoundAnnounceMatchStarted += (sender, e) =>
+            {
+                roundCount = 0;
+            };
+
+            #region BombPlanted Event
+            _demo.BombPlanted += (sender, e) =>
+            {
+                if (hasMatchStarted && e.Player != null)
+                {
+                    var player = players.Where(p => p.Name == e.Player.Name).FirstOrDefault();
+
+                    if (player != null)
+                        player.BombsPlanted++;
+                }
+            };
+            #endregion
+
+            #region RoundMVP Event
+            _demo.RoundMVP += (sender, e) =>
+            {
+                if (hasMatchStarted)
+                {
+                    if (e.Reason == RoundMVPReason.MostEliminations && e.Player != null)
+                    {
+                        var player = players.Where(p => p.Name == e.Player.Name).FirstOrDefault();
+
+                        if (player != null)
+                            player.RoundMVPs++;
+                    }
+                }
+            };
+            #endregion
+
             #region SetDistanceTraveled and WalkQuantityAsTR
             _demo.TickDone += (sender, e) => { 
                 if (hasMatchStarted && IsAllPlayersRegistered(players) && roundStarted && _demo.Participants != null)
@@ -81,20 +115,23 @@ namespace DemoCSGO.Core
 
             #region RoundStart Event
             _demo.RoundStart += (sender, e) => {
-                firstKillFlag = true;
-                roundStarted = true;
-                roundCount++;
-
-                if (IsAllPlayersRegistered(players))
+                if (hasMatchStarted)
                 {
-                    lastAliveTR = false;
-                    lastAliveCT = false;
-                    UpdateTeamSide(players, _demo.Participants);
+                    firstKillFlag = true;
+                    roundStarted = true;
+                    roundCount++;
 
-                    foreach (var player in players)
+                    if (IsAllPlayersRegistered(players))
                     {
-                        player.IsAlive = true;
-                        player.IsLastAliveThisRound = false;
+                        lastAliveTR = false;
+                        lastAliveCT = false;
+                        UpdateTeamSide(players, _demo.Participants);
+
+                        foreach (var player in players)
+                        {
+                            player.IsAlive = true;
+                            player.IsLastAliveThisRound = false;
+                        }
                     }
                 }
             };
@@ -105,6 +142,7 @@ namespace DemoCSGO.Core
             {
                 roundStarted = false;
 
+                SetADR(players, roundCount);
                 SetClutches(players, e);
             };
             #endregion
@@ -120,7 +158,6 @@ namespace DemoCSGO.Core
 
                         var player = players.Where(p => p.Name == e.ThrownBy.Name).FirstOrDefault();
                         player.FlashedEnemies += blindedEnemies;
-
                     }
                     else
                     {
@@ -130,19 +167,28 @@ namespace DemoCSGO.Core
             };
             #endregion
 
-            #region GetPlayersStats
+            #region GetPlayersKilledAndVictim
             _demo.PlayerKilled += (sender, e) => {
                 if (hasMatchStarted)
                 {
                     string nameWeaponFired = GetNameWeapon(e.Weapon.Weapon);
-
+                    
                     //Vitima
                     if (e.Victim != null)
                     {
+                        if (e.Victim.FlashDuration >= 1 && e.Assister != null)
+                        {
+                            var assister = players.Where(p => p.Name == e.Assister.Name).FirstOrDefault();
+
+                            if (assister != null)
+                                assister.FlashAssists++;
+                        }
+
                         if (players.Any(p => p.Name == e.Victim.Name))
                         {
                             bool foundWeapon = false;
                             var victim = players.Where(p => p.Name == e.Victim.Name).FirstOrDefault();
+
                             if (victim != null)
                             {
                                 victim.IsAlive = false;
@@ -235,6 +281,23 @@ namespace DemoCSGO.Core
             };
             #endregion
 
+            _demo.PlayerHurt += (sender, e) =>
+            {
+                if (hasMatchStarted && e.Attacker != null)
+                {
+                    var player = players.Where(p => p.Name == e.Attacker.Name).FirstOrDefault();
+
+                    if (player != null)
+                    {
+                        var damage = e.HealthDamage;
+                        if (damage > 100)
+                            damage = 100;
+
+                        player.TotalDamageDealt += damage;
+                    }
+                }
+            };
+
             #region GetHeatMap
             string nomeJogador = "dupreeh";
             mapDust2 = MakeMap("de_dust2", -2476, 3239, 4.4f);
@@ -274,6 +337,17 @@ namespace DemoCSGO.Core
             WriteJsonPlayers(players); // Funcionando
             DrawingPoints(shootingPositions, deathPositions);
             players.Clear();
+        }
+
+        private void SetADR(List<Models.Player> players, int roundCount)
+        {
+            foreach (var player in players)
+            {
+                if (roundCount == 0)
+                    player.ADR = 0;
+                else
+                    player.ADR = player.TotalDamageDealt / roundCount;
+            }
         }
 
         private void WriteWeaponsCsv(List<Models.Player> players)
@@ -342,16 +416,9 @@ namespace DemoCSGO.Core
 
         private void WriteJsonPlayers(List<Models.Player> players)
         {
-<<<<<<< HEAD
             string jsonResultPath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
-<<<<<<< Updated upstream
-=======
             //string jsonResultPath = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
->>>>>>> Stashed changes
-=======
-            // string jsonResultPath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
-            string jsonResultPath = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
->>>>>>> master
+       
             if (!IsJsonAlreadyCreated(jsonResultPath))
             {
                 WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players, Formatting.Indented));
@@ -473,7 +540,7 @@ namespace DemoCSGO.Core
             {
                 for (int i = 0; i < players.Length; i++)
                 {
-                    if (players[i].Team != playerThrownBy.Team)
+                    if (players[i].Team != playerThrownBy.Team && players[i].FlashDuration >= 1)
                         blindedEnemies++;
                 }
             }
