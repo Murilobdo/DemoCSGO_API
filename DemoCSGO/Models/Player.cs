@@ -26,11 +26,16 @@ namespace DemoCSGO.Models
         public string TeamName { get; set; }
         public int Killed { get; set; }
         public int Death { get; set; }
+        public float ADR { get; set; } // Average Damage per Round, dano médio por round
+        public int TotalDamageDealt { get; set; }
+        public int RoundMVPs { get; set; } // Quantidade de vezes que foi o jogador que mais matou na rodada
         public int LastAliveQuantity { get; set; } // Quantidade de vezes que foi o último a ficar vivo
         public int Clutches { get; set; } // Quantidade de vezes que o jogador foi o último a ficar vivo e ganhou a rodada
         public int FirstKills { get; set; } // Primeiro abate em uma rodada
         public int FirstDeaths { get; set; } // Sofreu a primeira morte durante a rodada
         public int FlashedEnemies { get; set; } // Inimigos que o jogador atingiu com a granada Flash
+        public int FlashAssists { get; set; }
+        public int BombsPlanted { get; set; }
         public int WalkQuantityAsTR { get; set; } // Quantidade de vezes que o jogador andou sem fazer barulho (Walk) de Terrorista
         public int WalkQuantityAsCT { get; set; } // Quantidade de vezes que o jogador andou sem fazer barulho (Walk) de Contra-Terrorista
         public double DistanceTraveledAsTR { get; set; } // Distancia total percorrida do jogador no jogo de Terrorista
@@ -42,25 +47,5 @@ namespace DemoCSGO.Models
         public bool IsAlive { get; set; } // Atributo auxiliar para saber se o jogador está vivo na rodada
         [JsonIgnore]
         public bool IsLastAliveThisRound { get; set; } // Atributo auxiliar para saber se o jogador é o último a ficar vivo da atual rodada
-        public enum Role
-        {
-            Awper,
-            Support,
-            Lurker,
-            Fragger,
-            Leader
-        }
-    }
-
-    public class PlayerMap : ClassMap<Player>
-    {
-        public PlayerMap()
-        {
-            Map(p => p.Name);
-            Map(p => p.TeamName);
-            Map(p => p.Killed);
-            Map(p => p.Death);
-            Map(p => p.Weapons).Index(5);
-        }
     }
 }
