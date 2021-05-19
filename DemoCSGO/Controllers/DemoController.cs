@@ -19,17 +19,17 @@ namespace DemoCSGO.Controllers
     public class DemoController : ControllerBase
     {
         private readonly string path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
-        private readonly string[] demos = Directory.GetFiles(@"V:\Users\vitor\DemoCSGO_API\Jupyter_Notebook\partidas");
-        //private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas");
+        //private readonly string[] demos = Directory.GetFiles(@"V:\Users\vitor\DemoCSGO_API\Jupyter_Notebook\partidas");
+        private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas");
 
         [HttpPost]
         [Route("LoadData")]
-        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
+        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core, string pathDEMO)
         {
+            return Ok("Sucesso: " + pathDEMO);
             var cronometro = new Stopwatch();
             string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
             //string path = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
-
             CheckAndRemoveExistingFiles(path);
 
             try
@@ -46,7 +46,7 @@ namespace DemoCSGO.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(new {ModelState = ModelState, Message = ex.Message});
+                return BadRequest(new { ModelState = ModelState, Message = ex.Message });
             }
         }
 
@@ -55,11 +55,11 @@ namespace DemoCSGO.Controllers
             //if (System.IO.File.Exists(path + "AllPlayersStats.json"))
             //    System.IO.File.Delete(path + "AllPlayersStats.json");
 
-            if (System.IO.File.Exists(path + "AllPlayersStats.csv"))
-                System.IO.File.Delete(path + "AllPlayersStats.csv");
+            // if (System.IO.File.Exists(path + "AllPlayersStats.csv"))
+            //     System.IO.File.Delete(path + "AllPlayersStats.csv");
 
-            if (System.IO.File.Exists(path + "AllWeaponsStats.csv"))
-                System.IO.File.Delete(path + "AllWeaponsStats.csv");
+            // if (System.IO.File.Exists(path + "AllWeaponsStats.csv"))
+            //     System.IO.File.Delete(path + "AllWeaponsStats.csv");
         }
 
         [HttpGet]

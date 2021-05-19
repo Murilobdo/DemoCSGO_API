@@ -270,7 +270,7 @@ namespace DemoCSGO.Core
 
             //SetRoles(players);
             //WriteWeaponsCsv(players);
-            WriteCsvFile(players); // N�o est� cadastrando as armas de cada jogador
+            //WriteCsvFile(players); // N�o est� cadastrando as armas de cada jogador
             WriteJsonPlayers(players); // Funcionando
             DrawingPoints(shootingPositions, deathPositions);
             players.Clear();

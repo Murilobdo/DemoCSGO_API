@@ -1,0 +1,35 @@
+.container{
+  background: #f9f6f6d4;
+  height: 95vh;
+  border-radius: 20px;
+}
+
+#container{
+  background: #020202a6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#header{
+  border-bottom: 1px solid #ccc;
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.box-progress-bar{
+  border: 2px solid rgb(26, 157, 59);
+  border-radius: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
