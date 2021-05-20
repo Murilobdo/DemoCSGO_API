@@ -63,7 +63,7 @@ predict_df.insert(0, 'Role', '')
 predict_df = predict_df.fillna(0)
 predict_df = predict_df.round(decimals=2)
 
-with open('models/model62.pkl', 'rb') as file:
+with open('models/model94.pkl', 'rb') as file:
     loaded_model = pickle.load(file)
 
 predictions_proba = loaded_model.predict_proba(predict_df.drop('Role', axis=1))
@@ -74,7 +74,8 @@ players_proba = pd.DataFrame(predictions_proba)
 players_proba.columns = ['AWPer', 'Entry Fragger', 'Lurker', 'Suporte']
 players_proba.insert(0, 'Name', '')
 players_proba['Name'] = players_stats['Name']
-#print(players_proba)
+print(players_proba)
+print(predictions)
 
 playersList = []
 rows = len(players_proba.index)
