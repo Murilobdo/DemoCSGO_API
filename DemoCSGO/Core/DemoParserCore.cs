@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using CsvHelper;
 using System.Globalization;
 using CsvHelper.Configuration;
+using System.Reflection;
 
 namespace DemoCSGO.Core
 {
@@ -56,6 +57,8 @@ namespace DemoCSGO.Core
             {
                 if (hasMatchStarted && e.Player != null)
                 {
+                    var jogadores = _demo.Participants;
+
                     var player = players.Where(p => p.Name == e.Player.Name).FirstOrDefault();
 
                     if (player != null)
@@ -144,6 +147,14 @@ namespace DemoCSGO.Core
 
                 SetADR(players, roundCount);
                 SetClutches(players, e);
+
+                //foreach (var player in players)
+                //{
+                //    if (player.TeamSide == Team.CounterTerrorist)
+                //        player.TeamName = _demo.TClanName;
+                //    else
+                //        player.TeamName = _demo.CTClanName;
+                //}
             };
             #endregion
 
@@ -208,6 +219,8 @@ namespace DemoCSGO.Core
                             {
                                 victim.Weapons.Add(new Weapon(nameWeaponFired, 0, 1, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                             }
+
+                            SetPlayerTeamName(e.Victim, victim);
                         }
                         else
                         {
@@ -263,6 +276,8 @@ namespace DemoCSGO.Core
                             {
                                 killer.Weapons.Add(new Weapon(nameWeaponFired, 1, 0, Enum.GetName(typeof(EquipmentClass), e.Weapon.Class)));
                             }
+
+                            SetPlayerTeamName(e.Killer, killer);
                         }
                         else
                         {
@@ -281,6 +296,7 @@ namespace DemoCSGO.Core
             };
             #endregion
 
+            #region PlayerHurt Event
             _demo.PlayerHurt += (sender, e) =>
             {
                 if (hasMatchStarted && e.Attacker != null)
@@ -297,6 +313,7 @@ namespace DemoCSGO.Core
                     }
                 }
             };
+            #endregion
 
             #region GetHeatMap
             string nomeJogador = "dupreeh";
@@ -331,12 +348,168 @@ namespace DemoCSGO.Core
 
             _demo.ParseToEnd();
 
-            //SetRoles(players);
-            //WriteWeaponsCsv(players);
-            //WriteCsvFile(players); // N�o est� cadastrando as armas de cada jogador
-            WriteJsonPlayers(players); // Funcionando
+            SetWeaponsKills(players);
+            players = SetMetrics(players);
+            WriteJsonPlayers(players);
             DrawingPoints(shootingPositions, deathPositions);
             players.Clear();
+        }
+
+        private void SetWeaponsKills(List<Models.Player> players)
+        {
+            foreach (var player in players)
+            {
+                foreach (var weapon in player.Weapons)
+                {
+                    if (weapon.NameWeapon == "AK47")
+                        player.AK47Kills = weapon.KillQuantity;
+                    if (weapon.NameWeapon == "AWP")
+                        player.AWPKills = weapon.KillQuantity;
+                    if (weapon.NameWeapon == "M4A4")
+                        player.M4A4Kills = weapon.KillQuantity;
+                    if (weapon.NameWeapon == "Mac10")
+                        player.MAC10Kills = weapon.KillQuantity;
+                    if (weapon.NameWeapon == "Scout")
+                        player.ScoutKills = weapon.KillQuantity;
+                    if (weapon.NameWeapon == "MP9")
+                        player.MP9Kills = weapon.KillQuantity;
+                }
+            }
+        }
+
+        private List<Models.Player> SetMetrics(List<Models.Player> players)
+        {
+            List<Models.Player> playersT1 = new();
+            List<Models.Player> playersT2 = new();
+            double sumKill = 0, sumDeath = 0, sumADR = 0, sumDamage = 0, sumFlashedEnemies = 0;
+            double sumMVPs = 0, sumLastAlive = 0, sumClutches = 0, sumFirstKills = 0, sumFirstDeaths = 0;
+            double sumFlashAssists = 0, sumBombsPlanted = 0, sumWalkQuantityAsTR = 0, sumDistanceTraveledAsTR = 0;
+            double sumAK = 0, sumM4 = 0, sumAWP = 0, sumScout = 0, sumMAC = 0, sumMP9 = 0;
+
+            foreach (var player in players)
+            {
+                if (player.TeamSide == Team.CounterTerrorist)
+                    playersT1.Add(player);
+                else
+                    playersT2.Add(player);
+            }
+
+
+            for (int j = 0; j < playersT1.Count; j++)
+            {
+                sumKill += playersT1[j].Killed;
+                sumDeath += playersT1[j].Death;
+                sumADR += playersT1[j].ADR;
+                sumDamage += playersT1[j].TotalDamageDealt;
+                sumMVPs += playersT1[j].RoundMVPs;
+                sumLastAlive += playersT1[j].LastAliveQuantity;
+                sumClutches += playersT1[j].Clutches;
+                sumFirstKills += playersT1[j].FirstKills;
+                sumFlashedEnemies += playersT1[j].FlashedEnemies;
+                sumFirstDeaths += playersT1[j].FirstDeaths;
+                sumFlashAssists += playersT1[j].FlashAssists;
+                sumBombsPlanted += playersT1[j].BombsPlanted;
+                sumWalkQuantityAsTR += playersT1[j].WalkQuantityAsTR;
+                sumDistanceTraveledAsTR += playersT1[j].DistanceTraveledAsTR;
+                sumAK += playersT1[j].AK47Kills;
+                sumM4 += playersT1[j].M4A4Kills;
+                sumAWP += playersT1[j].AWPKills;
+                sumScout += playersT1[j].ScoutKills;
+                sumMAC += playersT1[j].MAC10Kills;
+                sumMP9 += playersT1[j].MP9Kills;
+            }
+
+            for (int i = 0; i < playersT1.Count; i++)
+            {
+                playersT1[i].Killed = playersT1[i].Killed / sumKill;
+                playersT1[i].Death = playersT1[i].Death / sumDeath;
+                playersT1[i].ADR = playersT1[i].ADR / sumADR;
+                playersT1[i].TotalDamageDealt = playersT1[i].TotalDamageDealt / sumDamage;
+                playersT1[i].RoundMVPs = playersT1[i].RoundMVPs / sumMVPs;
+                playersT1[i].LastAliveQuantity = playersT1[i].LastAliveQuantity / sumLastAlive;
+                playersT1[i].Clutches = playersT1[i].Clutches / sumClutches;
+                playersT1[i].FirstKills = playersT1[i].FirstKills / sumFirstKills;
+                playersT1[i].FlashedEnemies = playersT1[i].FlashedEnemies / sumFlashedEnemies;
+                playersT1[i].FirstDeaths = playersT1[i].FirstDeaths / sumFirstDeaths;
+                playersT1[i].FlashAssists = playersT1[i].FlashAssists / sumFlashAssists;
+                playersT1[i].BombsPlanted = playersT1[i].BombsPlanted / sumBombsPlanted;
+                playersT1[i].WalkQuantityAsTR = playersT1[i].WalkQuantityAsTR / sumWalkQuantityAsTR;
+                playersT1[i].DistanceTraveledAsTR = playersT1[i].DistanceTraveledAsTR / sumDistanceTraveledAsTR;
+                playersT1[i].AK47Kills = playersT1[i].AK47Kills / sumAK;
+                playersT1[i].M4A4Kills = playersT1[i].M4A4Kills / sumM4;
+                if (playersT1[i].AWPKills != 0)
+                    playersT1[i].AWPKills = playersT1[i].AWPKills / sumAWP;
+                if (playersT1[i].ScoutKills != 0)
+                    playersT1[i].ScoutKills = playersT1[i].ScoutKills / sumScout;
+                if (playersT1[i].MAC10Kills != 0)
+                    playersT1[i].MAC10Kills = playersT1[i].MAC10Kills / sumMAC;
+                if (playersT1[i].MP9Kills != 0)
+                    playersT1[i].MP9Kills = playersT1[i].MP9Kills / sumMP9;
+            }
+
+            sumKill = 0; sumDeath = 0; sumADR = 0;
+            sumDamage = 0; sumMVPs = 0; sumLastAlive = 0;
+            sumClutches = 0; sumFirstKills = 0; sumFlashedEnemies = 0;
+            sumFirstDeaths = 0; sumFlashAssists = 0; sumBombsPlanted = 0;
+            sumWalkQuantityAsTR = 0; sumDistanceTraveledAsTR = 0;
+            sumAK = 0; sumM4 = 0; sumAWP = 0;
+            sumScout = 0; sumMAC = 0; sumMP9 = 0;
+
+            for (int j = 0; j < playersT2.Count; j++)
+            {
+                sumKill += playersT2[j].Killed;
+                sumDeath += playersT2[j].Death;
+                sumADR += playersT2[j].ADR;
+                sumDamage += playersT2[j].TotalDamageDealt;
+                sumMVPs += playersT2[j].RoundMVPs;
+                sumLastAlive += playersT2[j].LastAliveQuantity;
+                sumClutches += playersT2[j].Clutches;
+                sumFirstKills += playersT2[j].FirstKills;
+                sumFlashedEnemies += playersT2[j].FlashedEnemies;
+                sumFirstDeaths += playersT2[j].FirstDeaths;
+                sumFlashAssists += playersT2[j].FlashAssists;
+                sumBombsPlanted += playersT2[j].BombsPlanted;
+                sumWalkQuantityAsTR += playersT2[j].WalkQuantityAsTR;
+                sumDistanceTraveledAsTR += playersT2[j].DistanceTraveledAsTR;
+                sumAK += playersT2[j].AK47Kills;
+                sumM4 += playersT2[j].M4A4Kills;
+                sumAWP += playersT2[j].AWPKills;
+                sumScout += playersT2[j].ScoutKills;
+                sumMAC += playersT2[j].MAC10Kills;
+                sumMP9 += playersT2[j].MP9Kills;
+            }
+
+            for (int i = 0; i < playersT2.Count; i++)
+            {
+                playersT2[i].Killed = playersT2[i].Killed / sumKill;
+                playersT2[i].Death = playersT2[i].Death / sumDeath;
+                playersT2[i].ADR = playersT2[i].ADR / sumADR;
+                playersT2[i].TotalDamageDealt = playersT2[i].TotalDamageDealt / sumDamage;
+                playersT2[i].RoundMVPs = playersT2[i].RoundMVPs / sumMVPs;
+                playersT2[i].LastAliveQuantity = playersT2[i].LastAliveQuantity / sumLastAlive;
+                playersT2[i].Clutches = playersT2[i].Clutches / sumClutches;
+                playersT2[i].FirstKills = playersT2[i].FirstKills / sumFirstKills;
+                playersT2[i].FlashedEnemies = playersT2[i].FlashedEnemies / sumFlashedEnemies;
+                playersT2[i].FirstDeaths = playersT2[i].FirstDeaths / sumFirstDeaths;
+                playersT2[i].FlashAssists = playersT2[i].FlashAssists / sumFlashAssists;
+                playersT2[i].BombsPlanted = playersT2[i].BombsPlanted / sumBombsPlanted;
+                playersT2[i].WalkQuantityAsTR = playersT2[i].WalkQuantityAsTR / sumWalkQuantityAsTR;
+                playersT2[i].DistanceTraveledAsTR = playersT2[i].DistanceTraveledAsTR / sumDistanceTraveledAsTR;
+                playersT2[i].AK47Kills = playersT2[i].AK47Kills / sumAK;
+                playersT2[i].M4A4Kills = playersT2[i].M4A4Kills / sumM4;
+                if (playersT2[i].AWPKills != 0)
+                    playersT2[i].AWPKills = playersT2[i].AWPKills / sumAWP;
+                if (playersT2[i].ScoutKills != 0)
+                    playersT2[i].ScoutKills = playersT2[i].ScoutKills / sumScout;
+                if (playersT2[i].MAC10Kills != 0)
+                    playersT2[i].MAC10Kills = playersT2[i].MAC10Kills / sumMAC;
+                if (playersT2[i].MP9Kills != 0)
+                    playersT2[i].MP9Kills = playersT2[i].MP9Kills / sumMP9;
+            }
+
+            playersT1.AddRange(playersT2);
+
+            return playersT1;
         }
 
         private void SetADR(List<Models.Player> players, int roundCount)

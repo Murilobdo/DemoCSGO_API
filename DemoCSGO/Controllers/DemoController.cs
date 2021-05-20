@@ -19,9 +19,9 @@ namespace DemoCSGO.Controllers
     public class DemoController : ControllerBase
     {
         private readonly string path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
-        //private readonly string[] demos = Directory.GetFiles(@"V:\Users\vitor\DemoCSGO_API\Jupyter_Notebook\partidas");
-        private readonly string[] demos = Directory.GetFiles(@"C:\Users\vitor\source\repos\DemoCSGO_API\Jupyter_Notebook\partidas");
-        //private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas");
+        //private readonly string[] demos = Directory.GetFiles(@"V:\Users\vitor\DemoCSGO_API\Jupyter_Notebook\partidas"); // TODAS AS DEMOS VITOR
+        private readonly string[] demos = Directory.GetFiles(@"C:\Users\vitor\source\repos\DemoCSGO_API\Jupyter_Notebook\partidas"); // DEMOS VITOR
+        //private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas"); // DEMOS MURILO
 
         [HttpPost]
         [Route("LoadData")]
