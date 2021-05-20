@@ -25,12 +25,11 @@ namespace DemoCSGO.Controllers
 
         [HttpPost]
         [Route("LoadData")]
-        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
+        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core, string pathDEMO)
         {
             var cronometro = new Stopwatch();
             string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
             //string path = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
-
             CheckAndRemoveExistingFiles(path);
 
             try

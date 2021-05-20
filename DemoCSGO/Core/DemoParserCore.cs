@@ -591,7 +591,10 @@ namespace DemoCSGO.Core
         {
             string jsonResultPath = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
             //string jsonResultPath = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
+<<<<<<< HEAD
+=======
        
+>>>>>>> a2286f9b5c439b815d87a8356b916ae497d3b3d1
             if (!IsJsonAlreadyCreated(jsonResultPath))
             {
                 WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players, Formatting.Indented));

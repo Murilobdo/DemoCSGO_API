@@ -35,7 +35,6 @@ namespace DemoCSGO
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoCSGO", Version = "v1" });
             });
-            
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
             services.AddScoped<DataContext, DataContext>();
             services.AddScoped<IDemoParserCore, DemoParserCore>();
@@ -54,7 +53,11 @@ namespace DemoCSGO
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(p => {
+                p.AllowAnyHeader();
+                p.AllowAnyMethod();
+                p.AllowAnyOrigin();
+            });
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
