@@ -3,7 +3,6 @@ import pandas as pd
 import json
 import pickle
 import numpy as np
-import json
 
 class PlayerProb(object):
     def __init__(self, name, awper, entryFragger, lurker, suporte):
@@ -74,8 +73,8 @@ players_proba = pd.DataFrame(predictions_proba)
 players_proba.columns = ['AWPer', 'Entry Fragger', 'Lurker', 'Suporte']
 players_proba.insert(0, 'Name', '')
 players_proba['Name'] = players_stats['Name']
-print(players_proba)
-print(predictions)
+#print(players_proba)
+#print(predictions)
 
 playersList = []
 rows = len(players_proba.index)
