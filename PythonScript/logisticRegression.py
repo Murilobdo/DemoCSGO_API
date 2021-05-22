@@ -63,7 +63,7 @@ predict_df.insert(0, 'Role', '')
 predict_df = predict_df.fillna(0)
 predict_df = predict_df.round(decimals=2)
 
-with open('models/model94.pkl', 'rb') as file:
+with open('C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\PythonScript\\models\\model94.pkl', 'rb') as file:
     loaded_model = pickle.load(file)
 
 predictions_proba = loaded_model.predict_proba(predict_df.drop('Role', axis=1))
@@ -85,7 +85,7 @@ for i in range(rows):
 
 results = [player.to_dict() for player in playersList]
 playersjson = json.dumps(results)
-json_file = open('json/PlayersRole.json', 'w')
+json_file = open('C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\PythonScript\\json\\PlayersRole.json', 'w')
 json_file.write(playersjson)
 json_file.close()
 

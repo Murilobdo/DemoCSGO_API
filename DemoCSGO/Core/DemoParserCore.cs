@@ -14,6 +14,9 @@ using System.Globalization;
 using CsvHelper.Configuration;
 using System.Reflection;
 using System.Net;
+using System.Diagnostics;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
 
 namespace DemoCSGO.Core
 {
@@ -357,6 +360,57 @@ namespace DemoCSGO.Core
             WriteJsonPlayers(players);
             DrawingPoints(shootingPositions, deathPositions);
             players.Clear();
+
+            RunLogisticRegression();
+        }
+
+        private void RunLogisticRegression()
+        {
+            //ProcessStartInfo start = new ProcessStartInfo();
+            //start.FileName = @"C:\Users\vitor\anaconda3\python.exe";
+            //start.Arguments = @"..\PythonScript\logisticRegression.py";
+            //start.UseShellExecute = false;
+            //start.RedirectStandardOutput = true;
+
+            //using (Process process = Process.Start(start))
+            //{
+            //    using (StreamReader reader = process.StandardOutput)
+            //    {
+            //        string result = reader.ReadToEnd();
+            //        Console.Write(result);
+            //    }
+            //}
+
+            //string fileName = @"..\PythonScript\logisticRegression.py";
+
+            //Process p = new Process();
+            //p.StartInfo = new ProcessStartInfo(@"C:\Users\vitor\anaconda3\python.exe", fileName)
+            //{
+            //    RedirectStandardOutput = true,
+            //    UseShellExecute = false,
+            //    CreateNoWindow = false
+            //};
+            //p.Start();
+
+            //string output = p.StandardOutput.ReadToEnd();
+            //p.WaitForExit();
+
+            //ScriptEngine engine = Python.CreateEngine();
+            //engine.ExecuteFile(@"..\PythonScript\logisticRegression.py");
+
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+            cmd.StandardInput.WriteLine(@"python ..\PythonScript\logisticRegression.py");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            var output = cmd.StandardOutput.ReadToEnd();
+            Console.WriteLine(output);
         }
 
         private void GetFile(string urlDemo)
