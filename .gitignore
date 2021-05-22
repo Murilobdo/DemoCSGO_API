@@ -8,5 +8,6 @@ DemoCSGO.Shared/bin/
 DemoCSGO.Shared/obj/
 
 DemoCSGO/JsonResults/
+DemoCSGO/demos/
 
 Jupyter_Notebook/partidas/

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "appdividas": {
+      "hosting": {
+        "App": [
+          "appdividas"
+        ]
+      }
+    }
+  }
+}

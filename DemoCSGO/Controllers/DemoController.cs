@@ -19,44 +19,31 @@ namespace DemoCSGO.Controllers
     public class DemoController : ControllerBase
     {
         private readonly string path = Path.Combine(Environment.CurrentDirectory, "JsonResults");
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        private readonly string[] demos = Directory.GetFiles("C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\Jupyter_Notebook\\partidas");
-=======
-        private readonly string[] demos = Directory.GetFiles(@"V:\Users\vitor\DemoCSGO_API\Jupyter_Notebook\partidas");
-        //private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas");
->>>>>>> Stashed changes
-=======
-        // private readonly string[] demos = Directory.GetFiles("C:\\Users\\vitor\\source\\repos\\DemoCSGO_API\\Jupyter_Notebook\\partidas");
-        private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas");
->>>>>>> master
+        //private readonly string[] demos = Directory.GetFiles(@"V:\Users\vitor\DemoCSGO_API\Jupyter_Notebook\partidas"); // TODAS AS DEMOS VITOR
+        private readonly string[] demos = Directory.GetFiles(@"C:\Users\vitor\source\repos\DemoCSGO_API\Jupyter_Notebook\partidas"); // DEMOS VITOR
+        //private readonly string[] demos = Directory.GetFiles("C:\\Users\\muril\\Desktop\\TCC\\Jupyter_Notebook\\partidas"); // DEMOS MURILO
 
         [HttpPost]
         [Route("LoadData")]
-        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core)
+        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core, string pathDEMO, string token)
         {
+            pathDEMO = pathDEMO + "&token=" + token;
+            pathDEMO = pathDEMO.Replace("demo/", "demo%2F");
             var cronometro = new Stopwatch();
-<<<<<<< HEAD
             string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
-<<<<<<< Updated upstream
-=======
             //string path = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
->>>>>>> Stashed changes
-=======
-            // string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
-            string path = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
->>>>>>> master
-
             CheckAndRemoveExistingFiles(path);
 
             try
             {
                 cronometro.Start();
 
-                foreach (string demo in demos)
-                {
-                    _core.GenerateData(demo);
-                }
+                _core.GenerateData(pathDEMO);
+
+                //foreach (string demo in demos)
+                //{
+                //    _core.GenerateData(demo);
+                //}
 
                 cronometro.Stop();
                 return Ok("Dados carregados em " + cronometro.ElapsedMilliseconds / 1000 + "s");
@@ -69,14 +56,14 @@ namespace DemoCSGO.Controllers
 
         private void CheckAndRemoveExistingFiles(string path)
         {
-            //if (System.IO.File.Exists(path + "AllPlayersStats.json"))
-            //    System.IO.File.Delete(path + "AllPlayersStats.json");
+            if (System.IO.File.Exists(path + "AllPlayersStats.json"))
+                System.IO.File.Delete(path + "AllPlayersStats.json");
 
-            // if (System.IO.File.Exists(path + "AllPlayersStats.csv"))
-            //     System.IO.File.Delete(path + "AllPlayersStats.csv");
+            if (System.IO.File.Exists(path + "AllPlayersStats.csv"))
+                System.IO.File.Delete(path + "AllPlayersStats.csv");
 
-            // if (System.IO.File.Exists(path + "AllWeaponsStats.csv"))
-            //     System.IO.File.Delete(path + "AllWeaponsStats.csv");
+            if (System.IO.File.Exists(path + "AllWeaponsStats.csv"))
+                System.IO.File.Delete(path + "AllWeaponsStats.csv");
         }
 
         [HttpGet]
