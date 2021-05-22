@@ -34,10 +34,16 @@ export class StorageService {
   }
 
   public SendURL(urlDemo: string): any{
-    this.http.post(`${environment.URL_API}LoadData`, { pathDEMO: urlDemo })
+    console.log(urlDemo)
+    var url = `${environment.URL_API}LoadData?pathDEMO=${urlDemo}&token=${urlDemo.split("&token")[1]}`
+    this.http.post(url, null)
         .subscribe(data => {
           console.log(data);
         })
+    // this.http.post(`${environment.URL_API}LoadData`, {pathDEMO: urlDemo}, {responseType: 'text'})
+    //     .subscribe(data => {
+    //       console.log(data);
+    //     })
   }
 
   private getDownloadUrl$(uploadTask: AngularFireUploadTask, path: string): Observable<string> {

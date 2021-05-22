@@ -13,6 +13,7 @@ using CsvHelper;
 using System.Globalization;
 using CsvHelper.Configuration;
 using System.Reflection;
+using System.Net;
 
 namespace DemoCSGO.Core
 {
@@ -27,8 +28,9 @@ namespace DemoCSGO.Core
 
         //private void OpenDemo() => _demo = new DemoParser(File.OpenRead("C:\\Users\\vitor\\Downloads\\BLAST-Pro-Series-Madrid-2019-astralis-vs-natus-vincere-dust2\\astralis-vs-natus-vincere-dust2.dem"));
         private void OpenDemo(string file) => _demo = new DemoParser(File.OpenRead(file));        
+        //private void OpenDemo(object file) => _demo = new DemoParser((Stream)file);        
 
-        public void GenerateData(string demo)
+        public void GenerateData(string urlDemo)
         {
             List<Models.Player> players = new List<Models.Player>();
             List<Models.Player> alivePlayers = new List<Models.Player>();
@@ -39,7 +41,9 @@ namespace DemoCSGO.Core
             bool roundStarted = false;
             int roundCount = 0;
 
-            OpenDemo(demo);
+            GetFile(urlDemo);
+
+            OpenDemo(@"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\demos\myDemo.dem");
             _demo.ParseHeader();
             bool hasMatchStarted = false;
 
@@ -353,6 +357,22 @@ namespace DemoCSGO.Core
             WriteJsonPlayers(players);
             DrawingPoints(shootingPositions, deathPositions);
             players.Clear();
+        }
+
+        private void GetFile(string urlDemo)
+        {
+            string filePath = @"demos\myDemo.dem";
+            if (File.Exists(filePath))
+            {
+                System.GC.Collect();
+                System.GC.WaitForPendingFinalizers();
+                File.Delete(filePath);
+            }
+
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.DownloadFile(urlDemo, filePath);
+            }
         }
 
         private void SetWeaponsKills(List<Models.Player> players)

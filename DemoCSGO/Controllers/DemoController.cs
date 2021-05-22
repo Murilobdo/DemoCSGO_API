@@ -25,8 +25,10 @@ namespace DemoCSGO.Controllers
 
         [HttpPost]
         [Route("LoadData")]
-        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core, string pathDEMO)
+        public async Task<ActionResult> LoadData([FromServices]IDemoParserCore _core, string pathDEMO, string token)
         {
+            pathDEMO = pathDEMO + "&token=" + token;
+            pathDEMO = pathDEMO.Replace("demo/", "demo%2F");
             var cronometro = new Stopwatch();
             string path = @"C:\Users\vitor\source\repos\DemoCSGO_API\DemoCSGO\JsonResults\";
             //string path = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
@@ -36,10 +38,12 @@ namespace DemoCSGO.Controllers
             {
                 cronometro.Start();
 
-                foreach (string demo in demos)
-                {
-                    _core.GenerateData(demo);
-                }
+                _core.GenerateData(pathDEMO);
+
+                //foreach (string demo in demos)
+                //{
+                //    _core.GenerateData(demo);
+                //}
 
                 cronometro.Stop();
                 return Ok("Dados carregados em " + cronometro.ElapsedMilliseconds / 1000 + "s");
