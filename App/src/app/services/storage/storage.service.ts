@@ -5,7 +5,7 @@ import {
 import { from, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 export interface FilesUploadMetadata {
@@ -33,17 +33,19 @@ export class StorageService {
     };
   }
 
-  public SendURL(urlDemo: string): any{
+  public SendURL(urlDemo: string): Observable<any>{
+    const headers = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
     console.log(urlDemo)
     var url = `${environment.URL_API}LoadData?pathDEMO=${urlDemo}&token=${urlDemo.split("&token")[1]}`
-    this.http.post(url, null)
-        .subscribe(data => {
-          console.log(data);
-        })
+    return this.http.post(url, null, {headers: headers, responseType: 'text' as 'json'})
     // this.http.post(`${environment.URL_API}LoadData`, {pathDEMO: urlDemo}, {responseType: 'text'})
     //     .subscribe(data => {
     //       console.log(data);
     //     })
+  }
+
+  public GetJsonResult(): Observable<any>{
+    return this.http.get("http://127.0.0.1:8887/PlayersRole.json");
   }
 
   private getDownloadUrl$(uploadTask: AngularFireUploadTask, path: string): Observable<string> {

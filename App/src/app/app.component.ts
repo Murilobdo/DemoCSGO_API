@@ -6,6 +6,7 @@ import { Chart, ChartType, ChartDataSets, RadialChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { StorageService } from './services/storage/storage.service';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   public showUploadProgress!: boolean;
   public uploadProgress: Observable<number> = new Observable<number>();
   public downloadUrl!: Observable<string>;
-
+  public messageResult!: string;
    // Radar
   public radarChartOptions: RadialChartOptions = {
     responsive: true,
@@ -37,15 +38,17 @@ export class AppComponent implements OnInit {
     this.elemento = new ElementRef<any>(this.elemento);
   }
 
+
+
   ngOnInit(): void {
-    this.initPlayers();
+    //this.initPlayers();
 
   }
 
 
   public createChart(player: Player, template: TemplateRef<any>):void {
     this.radarChartData = [{
-      data: [player.valAWPer, player.valLurker, player.valFragger, player.valSupport], label: player.nome
+      data: [player.awper, player.lurker, player.entryFragger, player.suporte], label: player.name
     }]
     const config: ModalOptions = { class: 'modal-xl' };
     this.modalRef = this.modalService.show(template, config);
@@ -59,13 +62,29 @@ export class AppComponent implements OnInit {
     this.uploadProgress = uploadProgress$;
     this.showUploadProgress = true;
     this.downloadUrl = downloadUrl$;
-    this.downloadUrl.subscribe(data => this.storageService.SendURL(data));
+    this.downloadUrl.subscribe(data => {
+      this.storageService.SendURL(data)
+        .subscribe(data => {
+          console.log(data);
+          this.messageResult = data;
+          this.LoadResult();
+        });
+    });
   }
 
-  initPlayers(): void{
-    this.listPlayer.push({ id:1, nome:"Murilobdo", valAWPer:.3, valFragger:.51, valLurker:.22, valSupport:.15})
-    this.listPlayer.push({ id:2, nome:"VitorFerreira", valAWPer:.7, valFragger:.57, valLurker:.38, valSupport:.50})
+  public LoadResult(): any{
+      this.storageService.GetJsonResult()
+        .subscribe(data => {
+          console.log(data);
+          this.listPlayer = data;
+          debugger
+        });
   }
+
+  // initPlayers(): void{
+  //   this.listPlayer.push({ id:1, name:"Murilobdo", valAWPer:.3, valFragger:.51, valLurker:.22, valSupport:.15})
+  //   this.listPlayer.push({ id:2, nome:"VitorFerreira", valAWPer:.7, valFragger:.57, valLurker:.38, valSupport:.50})
+  // }
 }
 
 

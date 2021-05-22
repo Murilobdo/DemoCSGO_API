@@ -13,7 +13,7 @@ class PlayerProb(object):
         self._suporte = suporte
 
     def to_dict(self):
-        return {"Name": self._name, "AWPer": self._awper, "Entry Fragger": self._entryFragger, "Lurker": self._lurker, "Suporte": self._suporte}
+        return {"name": self._name, "awper": self._awper, "entryFragger": self._entryFragger, "lurker": self._lurker, "suporte": self._suporte}
 
     @property
     def name(self):

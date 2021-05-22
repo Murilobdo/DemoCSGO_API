@@ -14,6 +14,9 @@
           </label>
           <input id="file-upload" type="file" (change)="handleFileInput($event)" />
         </div>
+        <div *ngIf="messageResult">
+          <h3 class="text-muted">{{ messageResult }}</h3>
+        </div>
         <div *ngIf="showUploadProgress" class="row m-0">
           <span class="box-progress-bar">Carregando a partida {{ uploadProgress | async | number: '1.2-2'}} %</span>
         </div>
@@ -28,18 +31,18 @@
                 <td>Nome</td>
                 <td>AWPer</td>
                 <td>Lurker</td>
-                <td>Fragger</td>
-                <td>Support</td>
-                <td>Deatlhes</td>
+                <td>Entry Fragger</td>
+                <td>Suporte</td>
+                <td>Detalhes</td>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let player of listPlayer">
-                <td>{{player.nome}}</td>
-                <td>{{player.valAWPer}}</td>
-                <td>{{player.valLurker}}</td>
-                <td>{{player.valFragger}}</td>
-                <td>{{player.valSupport}}</td>
+                <td>{{player.name}}</td>
+                <td>{{player.awper}}</td>
+                <td>{{player.lurker}}</td>
+                <td>{{player.entryFragger}}</td>
+                <td>{{player.suporte}}</td>
                 <td>
                   <button class="btn btn-primary my-3" (click)="createChart(player, template)">Exibição em Grafico</button>
                 </td>

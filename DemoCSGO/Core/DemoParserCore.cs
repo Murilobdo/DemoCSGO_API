@@ -632,7 +632,7 @@ namespace DemoCSGO.Core
             //string jsonResultPath = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
             if (!IsJsonAlreadyCreated(jsonResultPath))
             {
-                WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players, Formatting.Indented));
+                WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players));
             }
             else
             {
