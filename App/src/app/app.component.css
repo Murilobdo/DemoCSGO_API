@@ -2,6 +2,15 @@
   background: #f9f6f6d4;
   height: 95vh;
   border-radius: 20px;
+  background-image: url(../assets/csgo.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.container::before{
+  position: absolute;
+  background-color: red;
 }
 
 #container{
@@ -11,6 +20,7 @@
   align-items: center;
   height: 100vh;
 }
+
 
 #header{
   border-bottom: 1px solid #ccc;
