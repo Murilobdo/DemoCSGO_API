@@ -73,9 +73,14 @@ export class AppComponent implements OnInit {
   }
 
   public LoadResult(): any{
-    var jsonResult = this.storageService.GetJsonResult();
-    this.listPlayer = jsonResult.data1;
-    debugger;
+      this.storageService.GetJsonResult_1()
+        .subscribe(data => {
+          this.listPlayer = data;
+          this.storageService.GetJsonResult_2()
+            .subscribe(data => {
+              debugger;
+            })
+        });
   }
 
   // initPlayers(): void{
