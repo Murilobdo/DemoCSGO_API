@@ -20,8 +20,8 @@
         </div>
         <div *ngIf="showUploadProgress" class="row m-0">
           <span *ngIf="exibicao == 0" class="box-progress-bar">Carregando a partida {{ uploadProgress | async | number: '1.2-2'}} %</span>
-          <span *ngIf="exibicao == 1" class="box-progress-bar">Processando dados...</span>
-          <span *ngIf="exibicao == 2" class="box-progress-bar">Dados carregados com sucesso</span>
+          <span *ngIf="exibicao == 1" class="box-progress-bar">Processando dados <img style="width: 15%; margin-left: 10px;" src="../assets/loading.gif"/></span>
+          <span *ngIf="exibicao == 2" class="box-progress-bar"><img style="width: 20%;" src="../assets/correct.gif"></span>
         </div>
     </div>
 

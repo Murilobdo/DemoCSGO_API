@@ -44,6 +44,8 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-style: oblique;
+  font-weight: bold;
 }
 
 #table-body tr td{
