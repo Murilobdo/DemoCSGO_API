@@ -4,8 +4,8 @@
   <div class="container">
 
     <div class="row m-0 mt-3" style="text-align: center;" id="header">
+      <img style="width: 15%;" src="https://cdn.iconscout.com/icon/free/png-256/cs-go-2288565-1933810.png">
       <h3>Counter-Strike Stats</h3>
-
     </div>
 
     <div id="form" class="d-flex justify-content-between mt-3">
@@ -25,29 +25,32 @@
     </div>
 
 
-    <div id="table">
-      <table class="table table-hover">
-        <thead>
+    <div id="table" class="mt-2">
+      <table class="table table-hover " >
+        <thead style="border-radius: 10px;">
           <tr>
-                <td><img style="width: 20%;" src="https://img.icons8.com/emoji/48/000000/military-helmet.png"/>Jogador</td>
-                <td><img style="width: 18%;" src="https://img.icons8.com/plasticine/100/000000/gun.png"/>Abates</td>
-                <td><img style="width: 23%;" src="https://img.icons8.com/color/48/000000/coffin--v1.png"/>Mortes</td>
-                <td><img style="width: 10%;" src="https://img.icons8.com/color/64/000000/skull-heart--v2.png"/>Dano Médio por Rodada</td>
-                <td><img style="width: 22%;" src="https://img.icons8.com/fluent/48/000000/wolf.png"/>Clutches</td>
-                <td><img style="width: 15%;" src="https://img.icons8.com/color/48/000000/horror.png"/>Primeiro Abate</td>
-                <td><img style="width: 22%;" src="https://img.icons8.com/bubbles/50/000000/define-location.png"/>Funções</td>
-            </tr>
+              <th scope="col" class="text-center"><img style="width: 20%;" src="https://img.icons8.com/emoji/48/000000/military-helmet.png"/>Jogador</th>
+              <th scope="col" class="text-center"><img style="width: 18%;" src="https://img.icons8.com/plasticine/100/000000/gun.png"/>Abates</th>
+              <th scope="col" class="text-center"><img style="width: 23%;" src="https://img.icons8.com/color/48/000000/coffin--v1.png"/>Mortes</th>
+              <th scope="col" class="text-center"><img style="width: 10%;" src="https://img.icons8.com/color/64/000000/skull-heart--v2.png"/>Dano Médio por Rodada</th>
+              <th scope="col" class="text-center"><img style="width: 22%;" src="https://img.icons8.com/fluent/48/000000/wolf.png"/>Clutches</th>
+              <th scope="col" class="text-center"><img style="width: 15%;" src="https://img.icons8.com/color/48/000000/horror.png"/>Primeiro Abate</th>
+              <th scope="col" class="text-center"><img style="width: 22%;" src="https://img.icons8.com/bubbles/50/000000/define-location.png"/>Funções</th>
+          </tr>
         </thead>
-        <tbody>
+
+        <tbody id="table-body" style="border-radius: 10px;">
             <tr *ngFor="let player of listPlayer">
                 <td>{{player.name}}</td>
-                <td>{{player.killed}}</td>
-                <td>{{player.death}}</td>
-                <td>{{player.adr}}</td>
-                <td>{{player.clutches}}</td>
-                <td>{{player.firstKills}}</td>
-                <td>
-                  <button class="btn btn-primary my-3 " (click)="createChart(player, template)">Exibir Grafico</button>
+                <td class="text-center">{{player.killed}}</td>
+                <td class="text-center">{{player.death}}</td>
+                <td class="text-center">{{player.adr}}</td>
+                <td class="text-center">{{player.clutches}}</td>
+                <td class="text-center">{{player.firstKills}}</td>
+                <td class="text-center" style="border: 0px;">
+                  <button class="btn btn-primary btn-info p-0" (click)="createChart(player, template)">
+                    Grafico
+                  </button>
                 </td>
             </tr>
         </tbody>

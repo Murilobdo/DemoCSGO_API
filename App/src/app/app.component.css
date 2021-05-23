@@ -33,3 +33,14 @@ input[type="file"] {
   justify-content: center;
   align-items: center;
 }
+
+#table-body tr td{
+
+}
+
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
+}
