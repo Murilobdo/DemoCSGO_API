@@ -8,13 +8,8 @@
   background-position: center;
 }
 
-.container::before{
-  position: absolute;
-  background-color: red;
-}
-
 #container{
-  background: #020202a6;
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;

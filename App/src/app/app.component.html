@@ -1,17 +1,15 @@
 <script src="https://kit.fontawesome.com/21620e66e1.js" crossorigin="anonymous"></script>
-
 <div id="container">
   <div class="container">
 
-    <div class="row m-0" id="header">
-      <img style="width: 10%;margin-right: 280px;" src="https://cdn.iconscout.com/icon/free/png-256/cs-go-2288565-1933810.png">
+    <div class="row m-0" id="header" style="text-align: center;">
       <h3 style="width: auto; padding-top: 35px;">Counter-Strike Stats</h3>
     </div>
 
     <div id="form" class="d-flex justify-content-between mt-3">
         <div>
-          <label for="file-upload" class="custom-file-upload btn btn-primary">
-            <img style="width: 25%;" src="https://img.icons8.com/pastel-glyph/64/000000/upload-to-cloud--v2.png"/>
+          <label for="file-upload" class="btn btn-primary" style="width: 170px;">
+            <img style="width: 19%;" src="../assets/cloud-computing.svg"/>
             <i class="fas fa-cloud-upload-alt"></i> Carregar DEMO
           </label>
           <input id="file-upload" type="file" (change)="handleFileInput($event)" />
@@ -23,7 +21,6 @@
           <span class="box-progress-bar">Carregando a partida {{ uploadProgress | async | number: '1.2-2'}} %</span>
         </div>
     </div>
-
 
     <div id="table" class="mt-2">
       <table class="table table-hover " >
@@ -48,16 +45,14 @@
                 <td class="text-center">{{player.clutches}}</td>
                 <td class="text-center">{{player.firstKills}}</td>
                 <td class="text-center" style="border: 0px;">
-                  <button style="background-color: blue; color: white; border-color: blue; width: 100px;" class="btn btn-primary btn-info p-0" (click)="createChart(player, template)">
-                    Gráfico
-                  </button>
+                <img (click)="createChart(player, template)" src="../assets/analytics.svg" alt="" style="width: 20%;">
                 </td>
-            </tr>
-        </tbody>
-      </table>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
 <ng-template #template>
   <div class="modal-header">
