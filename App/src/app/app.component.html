@@ -3,7 +3,8 @@
   <div class="container">
 
     <div class="row m-0" id="header" style="text-align: center;">
-      <h3 style="width: auto; padding-top: 35px;">Counter-Strike Stats</h3>
+      <img id="csgoicon" src="../assets/csgoicon.png">
+      <h3 style="width: auto; padding-top: 35px; margin-left: 22%;">Counter-Strike Stats</h3>
     </div>
 
     <div id="form" class="d-flex justify-content-between mt-3">
@@ -45,7 +46,7 @@
                 <td class="text-center">{{player.clutches}}</td>
                 <td class="text-center">{{player.firstKills}}</td>
                 <td class="text-center" style="border: 0px;">
-                <img (click)="createChart(player, template)" src="../assets/analytics.svg" alt="" style="width: 20%;">
+                <img id="imgGrafico"(click)="createChart(player, template)" src="../assets/analytics.svg" alt="" style="width: 20%;">
                 </td>
               </tr>
             </tbody>

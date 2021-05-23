@@ -16,9 +16,16 @@
   height: 100vh;
 }
 
-
 #header{
   border-bottom: 1px solid #ccc;
+}
+
+#csgoicon {
+  width: 15%;
+}
+
+#imgGrafico:hover {
+  cursor: pointer;
 }
 
 input[type="file"] {
