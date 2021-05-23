@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     //this.initPlayers();
-
+    this.LoadResult();
   }
 
 
@@ -80,17 +80,17 @@ export class AppComponent implements OnInit {
             .subscribe(data => {
               //@ts-ignore
               data.forEach(element => {
-                var player = this.listPlayer.find(p => p.name == element.name);
+                var player = this.listPlayer.find(p => p.name == element.Name);
                 //@ts-ignore
-                player.killed = element.killed;
+                player.killed = element.Killed;
                 //@ts-ignore
-                player.death = element.death;
+                player.death = element.Death;
                 //@ts-ignore
-                player.adr = element.adr;
+                player.adr = element.ADR;
                 //@ts-ignore
-                player.clutches = element.clutches;
+                player.clutches = element.Clutches;
                 //@ts-ignore
-                player.firstKills = element.firstKills;
+                player.firstKills = element.FirstKills;
               });
 
               console.table(this.listPlayer);

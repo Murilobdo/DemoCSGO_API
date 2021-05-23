@@ -355,6 +355,7 @@ namespace DemoCSGO.Core
 
             _demo.ParseToEnd();
 
+            WriteJsonFile(@"..\..\PythonScript\json\PlayersStats", JsonConvert.SerializeObject(players));
             SetWeaponsKills(players);
             players = SetMetrics(players);
             WriteJsonPlayers(players);
