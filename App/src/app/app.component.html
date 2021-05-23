@@ -48,8 +48,8 @@
                 <td class="text-center">{{player.clutches}}</td>
                 <td class="text-center">{{player.firstKills}}</td>
                 <td class="text-center" style="border: 0px;">
-                  <button class="btn btn-primary btn-info p-0" (click)="createChart(player, template)">
-                    Grafico
+                  <button style="background-color: blue; color: white; border-color: blue; width: 100px;" class="btn btn-primary btn-info p-0" (click)="createChart(player, template)">
+                    Gráfico
                   </button>
                 </td>
             </tr>
@@ -61,7 +61,7 @@
 
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Gráfico de Radar</h4>
+    <h4 class="modal-title pull-left">Gráfico das Funções</h4>
     <button type="button" class="btn btn-primary" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -71,7 +71,7 @@
             baseChart
             [datasets]="radarChartData"
             [options]="radarChartOptions"
-            [labels]="['AWPer', 'Lurker', 'Fragger', 'Support']"
+            [labels]="['AWPer', 'Lurker', 'Entry Fragger', 'Support']"
             [chartType]="radarChartType">
     </canvas>
   </div>
