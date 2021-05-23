@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, TemplateRef, ViewChild  } from '@angular
 import { Player } from './models/Player';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 
-import { Chart, ChartType, ChartDataSets, RadialChartOptions } from 'chart.js';
+import { Chart, ChartType, ChartDataSets, RadialChartOptions, ChartFontOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { StorageService } from './services/storage/storage.service';
 import { Observable } from 'rxjs';
@@ -25,6 +25,20 @@ export class AppComponent implements OnInit {
   public messageResult!: string;
    // Radar
   public radarChartOptions: RadialChartOptions = {
+    legend: {
+      display: true,
+      labels: {
+        fontSize: 30,
+        fontColor: 'red',
+      }
+    },
+    scale: {
+      pointLabels: {
+        fontSize: 20,
+        fontStyle: 'bold',
+        fontColor: 'black'
+      }
+    },
     responsive: true,
   };
   public radarChartData: ChartDataSets[] =[];
