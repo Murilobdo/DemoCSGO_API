@@ -22,31 +22,31 @@
         </div>
     </div>
 
-
-
-    <div id="table">
-      <table class="table table-hover">
-        <thead>
+    <div id="table" class="mt-2">
+      <table class="table table-hover " >
+        <thead style="border-radius: 10px;">
             <tr>
-                <td>Nome</td>
-                <td>Killed</td>
-                <td>Death</td>
-                <td>ADR</td>
-                <td>Clutches</td>
-                <td>FirstKills</td>
-                <td>Funções</td>
+                <th scope="col" class="text-center">Nome</th>
+                <th scope="col" class="text-center">Killed</th>
+                <th scope="col" class="text-center">Death</th>
+                <th scope="col" class="text-center">ADR</th>
+                <th scope="col" class="text-center">Clutches</th>
+                <th scope="col" class="text-center">FirstKills</th>
+                <th scope="col" class="text-center">Funções</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="table-body" style="border-radius: 10px;">
             <tr *ngFor="let player of listPlayer">
                 <td>{{player.name}}</td>
-                <td>{{player.killed}}</td>
-                <td>{{player.death}}</td>
-                <td>{{player.adr}}</td>
-                <td>{{player.clutches}}</td>
-                <td>{{player.firstKills}}</td>
-                <td>
-                  <button class="btn btn-primary my-3 p-0" (click)="createChart(player, template)">Exibição em Grafico</button>
+                <td class="text-right">{{player.killed}}</td>
+                <td class="text-right">{{player.death}}</td>
+                <td class="text-right">{{player.adr}}</td>
+                <td class="text-right">{{player.clutches}}</td>
+                <td class="text-right">{{player.firstKills}}</td>
+                <td class="text-center" style="border: 0px;">
+                  <button class="btn btn-primary btn-info p-0" (click)="createChart(player, template)">
+                    Grafico
+                  </button>
                 </td>
             </tr>
         </tbody>
