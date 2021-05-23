@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   public uploadProgress: Observable<number> = new Observable<number>();
   public downloadUrl!: Observable<string>;
   public messageResult!: string;
+  public exibicao: number = 0;
    // Radar
   public radarChartOptions: RadialChartOptions = {
     legend: {
@@ -77,11 +78,13 @@ export class AppComponent implements OnInit {
     this.showUploadProgress = true;
     this.downloadUrl = downloadUrl$;
     this.downloadUrl.subscribe(data => {
+      this.exibicao = 1;
       this.storageService.SendURL(data)
         .subscribe(data => {
           console.log(data);
           this.messageResult = data;
           this.LoadResult();
+          this.exibicao = 2;
         });
     });
   }
@@ -91,21 +94,23 @@ export class AppComponent implements OnInit {
         .subscribe(data => {
           this.listPlayer = data;
           this.storageService.GetJsonResult_2()
-            .subscribe(data => {
+          .subscribe(data => {
+            //@ts-ignore
+            data.forEach(element => {
+              var player = this.listPlayer.find(p => p.name == element.Name);
               //@ts-ignore
-              data.forEach(element => {
-                var player = this.listPlayer.find(p => p.name == element.Name);
-                //@ts-ignore
-                player.killed = element.Killed;
-                //@ts-ignore
-                player.death = element.Death;
-                //@ts-ignore
-                player.adr = element.ADR;
-                //@ts-ignore
-                player.clutches = element.Clutches;
-                //@ts-ignore
-                player.firstKills = element.FirstKills;
-              });
+              player.killed = element.Killed;
+              //@ts-ignore
+              player.death = element.Death;
+              //@ts-ignore
+              player.adr = element.ADR;
+              //@ts-ignore
+              player.clutches = element.Clutches;
+              //@ts-ignore
+              player.firstKills = element.FirstKills;
+              //@ts-ignore
+              player.blindedEnemies = element.FlashedEnemies;
+            });
 
               console.table(this.listPlayer);
             })

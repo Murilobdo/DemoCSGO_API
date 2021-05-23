@@ -9,4 +9,5 @@ export class Player{
   adr: number = 0;
   clutches: number = 0;
   firstKills: number = 0;
+  blindedEnemies: number = 0;
 }

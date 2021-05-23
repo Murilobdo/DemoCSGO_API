@@ -39,7 +39,7 @@ input[type="file"] {
 }
 
 .box-progress-bar{
-  border: 2px solid rgb(26, 157, 59);
+  border: 2px solid blue;
   border-radius: 7px;
   display: flex;
   justify-content: center;

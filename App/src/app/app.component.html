@@ -19,7 +19,9 @@
           <h3 class="text-muted">{{ messageResult }}</h3>
         </div>
         <div *ngIf="showUploadProgress" class="row m-0">
-          <span class="box-progress-bar">Carregando a partida {{ uploadProgress | async | number: '1.2-2'}} %</span>
+          <span *ngIf="exibicao == 0" class="box-progress-bar">Carregando a partida {{ uploadProgress | async | number: '1.2-2'}} %</span>
+          <span *ngIf="exibicao == 1" class="box-progress-bar">Processando dados...</span>
+          <span *ngIf="exibicao == 2" class="box-progress-bar">Dados carregados com sucesso</span>
         </div>
     </div>
 
@@ -33,6 +35,7 @@
               <th scope="col" class="text-center"><img style="width: 10%;" src="https://img.icons8.com/color/64/000000/skull-heart--v2.png"/>Dano Médio por Rodada</th>
               <th scope="col" class="text-center"><img style="width: 22%;" src="https://img.icons8.com/fluent/48/000000/wolf.png"/>Clutches</th>
               <th scope="col" class="text-center"><img style="width: 15%;" src="https://img.icons8.com/color/48/000000/horror.png"/>Primeiro Abate</th>
+              <th scope="col" class="text-center"><img style="width: 15%;" src="https://img.icons8.com/color/48/000000/blind.png"/>Inimigos cegos</th>
               <th scope="col" class="text-center"><img style="width: 22%;" src="https://img.icons8.com/bubbles/50/000000/define-location.png"/>Funções</th>
           </tr>
         </thead>
@@ -45,7 +48,8 @@
                 <td class="text-center">{{player.adr}}</td>
                 <td class="text-center">{{player.clutches}}</td>
                 <td class="text-center">{{player.firstKills}}</td>
-                <td class="text-center" style="border: 0px;">
+                <td class="text-center">{{player.blindedEnemies}}</td>
+                <td class="text-center">
                 <img id="imgGrafico"(click)="createChart(player, template)" src="../assets/analytics.svg" alt="" style="width: 20%;">
                 </td>
             </tr>
