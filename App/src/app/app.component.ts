@@ -78,7 +78,22 @@ export class AppComponent implements OnInit {
           this.listPlayer = data;
           this.storageService.GetJsonResult_2()
             .subscribe(data => {
-              debugger;
+              //@ts-ignore
+              data.forEach(element => {
+                var player = this.listPlayer.find(p => p.name == element.name);
+                //@ts-ignore
+                player.killed = element.killed;
+                //@ts-ignore
+                player.death = element.death;
+                //@ts-ignore
+                player.adr = element.adr;
+                //@ts-ignore
+                player.clutches = element.clutches;
+                //@ts-ignore
+                player.firstKills = element.firstKills;
+              });
+
+              console.table(this.listPlayer);
             })
         });
   }
