@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: 'YOUR apiKey HERE',
-    authDomain: 'YOUR authDomain HERE',
-    databaseURL: 'YOUR databaseURL HERE',
-    projectId: 'YOUR projectId HERE',
-    storageBucket: 'YOUR storageBucket HERE',
-    messagingSenderId: 'YOUR messagingSenderId HERE',
-    appId: 'YOUR appId HERE',
-    measurementId: 'YOUR measurementId HERE',
+    apiKey: "AIzaSyBes33wYfKrU52tSsuGDzCzGviw-ji6AeY",
+    authDomain: "appdividas.firebaseapp.com",
+    databaseURL: "https://appdividas-default-rtdb.firebaseio.com",
+    projectId: "appdividas",
+    storageBucket: "appdividas.appspot.com",
+    messagingSenderId: "712586522413",
+    appId: "1:712586522413:web:b679ce8448ca9e80ee6da4"
   },
+  URL_API: 'https://localhost:44346/v1/Demo/'
 };

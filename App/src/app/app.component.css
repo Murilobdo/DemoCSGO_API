@@ -2,10 +2,14 @@
   background: #f9f6f6d4;
   height: 95vh;
   border-radius: 20px;
+  background-image: url(../assets/csgo.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 #container{
-  background: #020202a6;
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +18,14 @@
 
 #header{
   border-bottom: 1px solid #ccc;
+}
+
+#csgoicon {
+  width: 15%;
+}
+
+#imgGrafico:hover {
+  cursor: pointer;
 }
 
 input[type="file"] {
@@ -27,9 +39,22 @@ input[type="file"] {
 }
 
 .box-progress-bar{
-  border: 2px solid rgb(26, 157, 59);
+  border: 2px solid blue;
   border-radius: 7px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-style: oblique;
+  font-weight: bold;
+}
+
+#table-body tr td{
+
+}
+
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
 }

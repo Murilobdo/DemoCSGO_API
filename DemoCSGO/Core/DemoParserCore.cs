@@ -355,6 +355,7 @@ namespace DemoCSGO.Core
 
             _demo.ParseToEnd();
 
+            WriteJsonFile(@"..\..\PythonScript\json\PlayersStats", JsonConvert.SerializeObject(players));
             SetWeaponsKills(players);
             players = SetMetrics(players);
             WriteJsonPlayers(players);
@@ -632,7 +633,7 @@ namespace DemoCSGO.Core
             //string jsonResultPath = @"C:\Users\muril\Desktop\TCC\DemoCSGO\JsonResults\";
             if (!IsJsonAlreadyCreated(jsonResultPath))
             {
-                WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players, Formatting.Indented));
+                WriteJsonFile("AllPlayersStats", JsonConvert.SerializeObject(players));
             }
             else
             {

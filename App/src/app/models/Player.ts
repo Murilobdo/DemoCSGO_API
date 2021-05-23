@@ -1,8 +1,13 @@
 export class Player{
-  id: number = 0;
-  nome: string = "";
-  valAWPer: number = 0;
-  valLurker: number = 0;
-  valFragger: number = 0;
-  valSupport: number = 0;
+  name: string = "";
+  awper: number = 0;
+  lurker: number = 0;
+  entryFragger: number = 0;
+  suporte: number = 0;
+  killed: number = 0;
+  death: number = 0;
+  adr: number = 0;
+  clutches: number = 0;
+  firstKills: number = 0;
+  blindedEnemies: number = 0;
 }

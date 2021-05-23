@@ -1,58 +1,71 @@
-
-
+<script src="https://kit.fontawesome.com/21620e66e1.js" crossorigin="anonymous"></script>
 <div id="container">
   <div class="container">
 
-    <div class="row m-0 mt-3" style="text-align: center;" id="header">
-      <h3>Funções Counter Strike</h3>
+    <div class="row m-0" id="header" style="text-align: center;">
+      <img id="csgoicon" src="../assets/csgoicon.png">
+      <h3 style="width: auto; padding-top: 35px; margin-left: 22%;">Counter-Strike Stats</h3>
     </div>
 
     <div id="form" class="d-flex justify-content-between mt-3">
         <div>
-          <label for="file-upload" class="custom-file-upload btn btn-primary">
+          <label for="file-upload" class="btn btn-primary" style="width: 170px;">
+            <img style="width: 19%;" src="../assets/cloud-computing.svg"/>
             <i class="fas fa-cloud-upload-alt"></i> Carregar DEMO
           </label>
           <input id="file-upload" type="file" (change)="handleFileInput($event)" />
         </div>
+
+        <div *ngIf="messageResult">
+          <h3 class="text-muted">{{ messageResult }}</h3>
+        </div>
         <div *ngIf="showUploadProgress" class="row m-0">
-          <span class="box-progress-bar">Carregando a partida {{ uploadProgress | async | number: '1.2-2'}} %</span>
+          <span *ngIf="exibicao == 0" class="box-progress-bar">Carregando arquivo DEMO {{ uploadProgress | async | number: '1.2-2'}} %</span>
+          <span *ngIf="exibicao == 1" class="box-progress-bar">Processando dados <img style="width: 15%; margin-left: 10px;" src="../assets/loading.gif"/></span>
+          <span *ngIf="exibicao == 2" class="box-progress-bar"><img style="width: 20%;" src="../assets/correct.gif"></span>
         </div>
     </div>
 
+    <br *ngIf="exibicao == 0">
+    <span *ngIf="exibicao == 0" style="margin-left: 0.%; font-weight: bold; font-style: italic;">Carregue uma DEMO para exibir os resultados</span>
 
-
-    <div id="table">
-      <table class="table table-hover">
-        <thead>
-            <tr>
-                <td>Nome</td>
-                <td>AWPer</td>
-                <td>Lurker</td>
-                <td>Fragger</td>
-                <td>Support</td>
-                <td>Deatlhes</td>
-            </tr>
+    <div id="table" class="mt-2" *ngIf="exibicao == 2">
+      <table class="table table-hover " >
+        <thead style="border-radius: 10px;">
+          <tr>
+              <th scope="col" class="text-center"><img style="width: 20%;" src="https://img.icons8.com/emoji/48/000000/military-helmet.png"/>Jogador</th>
+              <th scope="col" class="text-center"><img style="width: 18%;" src="https://img.icons8.com/plasticine/100/000000/gun.png"/>Abates</th>
+              <th scope="col" class="text-center"><img style="width: 23%;" src="https://img.icons8.com/color/48/000000/coffin--v1.png"/>Mortes</th>
+              <th scope="col" class="text-center"><img style="width: 10%;" src="https://img.icons8.com/color/64/000000/skull-heart--v2.png"/>Dano Médio por Rodada</th>
+              <th scope="col" class="text-center"><img style="width: 22%;" src="https://img.icons8.com/fluent/48/000000/wolf.png"/>Clutches</th>
+              <th scope="col" class="text-center"><img style="width: 15%;" src="https://img.icons8.com/color/48/000000/horror.png"/>Primeiro Abate</th>
+              <th scope="col" class="text-center"><img style="width: 15%;" src="https://img.icons8.com/color/48/000000/blind.png"/>Inimigos cegos</th>
+              <th scope="col" class="text-center"><img style="width: 22%;" src="https://img.icons8.com/bubbles/50/000000/define-location.png"/>Funções</th>
+          </tr>
         </thead>
-        <tbody>
+
+        <tbody id="table-body" style="border-radius: 10px;">
             <tr *ngFor="let player of listPlayer">
-                <td>{{player.nome}}</td>
-                <td>{{player.valAWPer}}</td>
-                <td>{{player.valLurker}}</td>
-                <td>{{player.valFragger}}</td>
-                <td>{{player.valSupport}}</td>
-                <td>
-                  <button class="btn btn-primary my-3" (click)="createChart(player, template)">Exibição em Grafico</button>
+                <td>{{player.name}}</td>
+                <td class="text-center">{{player.killed}}</td>
+                <td class="text-center">{{player.death}}</td>
+                <td class="text-center">{{player.adr}}</td>
+                <td class="text-center">{{player.clutches}}</td>
+                <td class="text-center">{{player.firstKills}}</td>
+                <td class="text-center">{{player.blindedEnemies}}</td>
+                <td class="text-center">
+                <img id="imgGrafico"(click)="createChart(player, template)" src="../assets/analytics.svg" alt="" style="width: 20%;">
                 </td>
             </tr>
-        </tbody>
-      </table>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Gráfico de Radar</h4>
+    <h4 class="modal-title pull-left">Gráfico das Funções</h4>
     <button type="button" class="btn btn-primary" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -62,9 +75,11 @@
             baseChart
             [datasets]="radarChartData"
             [options]="radarChartOptions"
-            [labels]="['AWPer', 'Lurker', 'Fragger', 'Support']"
+            [labels]="['AWPer', 'Lurker', 'Entry Fragger', 'Support']"
             [chartType]="radarChartType">
     </canvas>
   </div>
 </ng-template>
+
+
 
