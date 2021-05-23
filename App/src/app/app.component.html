@@ -1,15 +1,17 @@
-
+<script src="https://kit.fontawesome.com/21620e66e1.js" crossorigin="anonymous"></script>
 
 <div id="container">
   <div class="container">
 
     <div class="row m-0 mt-3" style="text-align: center;" id="header">
-      <h3>Funções Counter Strike</h3>
+      <h3>Counter-Strike Stats</h3>
+
     </div>
 
     <div id="form" class="d-flex justify-content-between mt-3">
         <div>
           <label for="file-upload" class="custom-file-upload btn btn-primary">
+            <img style="width: 25%;" src="https://img.icons8.com/pastel-glyph/64/000000/upload-to-cloud--v2.png"/>
             <i class="fas fa-cloud-upload-alt"></i> Carregar DEMO
           </label>
           <input id="file-upload" type="file" (change)="handleFileInput($event)" />
@@ -23,18 +25,17 @@
     </div>
 
 
-
     <div id="table">
       <table class="table table-hover">
         <thead>
-            <tr>
-                <td>Nome</td>
-                <td>Killed</td>
-                <td>Death</td>
-                <td>ADR</td>
-                <td>Clutches</td>
-                <td>FirstKills</td>
-                <td>Funções</td>
+          <tr>
+                <td><img style="width: 20%;" src="https://img.icons8.com/emoji/48/000000/military-helmet.png"/>Jogador</td>
+                <td><img style="width: 18%;" src="https://img.icons8.com/plasticine/100/000000/gun.png"/>Abates</td>
+                <td><img style="width: 23%;" src="https://img.icons8.com/color/48/000000/coffin--v1.png"/>Mortes</td>
+                <td><img style="width: 10%;" src="https://img.icons8.com/color/64/000000/skull-heart--v2.png"/>Dano Médio por Rodada</td>
+                <td><img style="width: 22%;" src="https://img.icons8.com/fluent/48/000000/wolf.png"/>Clutches</td>
+                <td><img style="width: 15%;" src="https://img.icons8.com/color/48/000000/horror.png"/>Primeiro Abate</td>
+                <td><img style="width: 22%;" src="https://img.icons8.com/bubbles/50/000000/define-location.png"/>Funções</td>
             </tr>
         </thead>
         <tbody>
@@ -46,7 +47,7 @@
                 <td>{{player.clutches}}</td>
                 <td>{{player.firstKills}}</td>
                 <td>
-                  <button class="btn btn-primary my-3 p-0" (click)="createChart(player, template)">Exibição em Grafico</button>
+                  <button class="btn btn-primary my-3 " (click)="createChart(player, template)">Exibir Grafico</button>
                 </td>
             </tr>
         </tbody>
@@ -72,4 +73,6 @@
     </canvas>
   </div>
 </ng-template>
+
+
 
