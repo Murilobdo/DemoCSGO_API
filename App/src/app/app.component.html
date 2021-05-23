@@ -29,20 +29,22 @@
         <thead>
             <tr>
                 <td>Nome</td>
-                <td>AWPer</td>
-                <td>Lurker</td>
-                <td>Entry Fragger</td>
-                <td>Suporte</td>
-                <td>Detalhes</td>
+                <td>Killed</td>
+                <td>Death</td>
+                <td>ADR</td>
+                <td>Clutches</td>
+                <td>FirstKills</td>
+                <td>Funções</td>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let player of listPlayer">
                 <td>{{player.name}}</td>
-                <td>{{player.awper}}</td>
-                <td>{{player.lurker}}</td>
-                <td>{{player.entryFragger}}</td>
-                <td>{{player.suporte}}</td>
+                <td>{{player.killed}}</td>
+                <td>{{player.death}}</td>
+                <td>{{player.adr}}</td>
+                <td>{{player.clutches}}</td>
+                <td>{{player.firstKills}}</td>
                 <td>
                   <button class="btn btn-primary my-3" (click)="createChart(player, template)">Exibição em Grafico</button>
                 </td>

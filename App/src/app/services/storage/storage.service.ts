@@ -44,8 +44,18 @@ export class StorageService {
     //     })
   }
 
-  public GetJsonResult(): Observable<any>{
-    return this.http.get("http://127.0.0.1:8887/PlayersRole.json");
+  public GetJsonResult(): any{
+    var data1;
+    var data2;
+    this.http.get("http://127.0.0.1:8887/PlayersRole.json")
+      .subscribe(data => {
+        data1 = data;
+        this.http.get("http://127.0.0.1:8887/PlayersRole.json")
+          .subscribe(data => {
+            data2 = data;
+          });
+      });
+    return { data1: data1, data2: data2 };
   }
 
   private getDownloadUrl$(uploadTask: AngularFireUploadTask, path: string): Observable<string> {
