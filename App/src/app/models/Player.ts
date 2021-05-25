@@ -10,4 +10,5 @@ export class Player{
   clutches: number = 0;
   firstKills: number = 0;
   blindedEnemies: number = 0;
+  awpKills: number = 0;
 }

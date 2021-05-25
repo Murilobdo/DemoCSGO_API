@@ -110,6 +110,23 @@ export class AppComponent implements OnInit {
               player.firstKills = element.FirstKills;
               //@ts-ignore
               player.blindedEnemies = element.FlashedEnemies;
+
+              var weapons = element.Weapons;
+              var foundAWP = false;
+              for (let index = 0; index < weapons.length; index++) {
+                if (weapons[index].NameWeapon == "AWP"){
+                  //@ts-ignore
+                  player.awpKills = weapons[index].KillQuantity;
+                  foundAWP = true;
+                  break;
+                }
+              }
+
+              if (foundAWP == false){
+                //@ts-ignore
+                player.awpKills = 0
+              }
+
             });
 
               console.table(this.listPlayer);
